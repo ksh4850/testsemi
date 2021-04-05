@@ -1,0 +1,277 @@
+.post{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1100px;      
+    /* text-align: center;  */
+    
+}
+
+#post1-main{
+    /* float: left; */
+    text-align: center;
+    /* border: 1px solid #25bc74; */
+}
+
+
+#post1-main-img{
+    float: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #25bc74;
+    border-radius: 15px;
+    
+    
+}
+
+#post1-img{
+    width: 350px;
+    height: 350px;
+    padding-top: 30px;
+    border-radius: 15px;
+}
+
+
+#post1-main-info{
+    float: left;
+    margin-left: 50px;
+    margin-right: 50px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid #25bc74;
+    border-radius: 15px;
+   
+
+}
+
+.post1-info{
+   width: 350px;
+   height: 80px;
+   margin-top: 30px;
+   margin-bottom: 10px;
+   margin-left: 15px;
+  
+}
+
+#post1-product-comment{
+ 
+    clear: both;
+    text-align: center;
+    width: 1000px;
+    height: 40%;  
+    
+    
+}
+
+
+
+#post1-product-bar{
+    margin-top: 30px; 
+    
+    
+}
+
+.post1-product{
+    
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    border: 1px solid #25bc74 ;
+}
+
+.post1-product:hover{
+    background: #25bc74;
+    color: white;
+}
+
+#post1-comment-info{
+    width: 1000px;
+    
+}
+
+.post1-comment{
+    width: 580px;
+    height: 50px;
+    
+    margin-left: 210px;
+    padding-top: 15px;
+    text-align: left;
+    font-size: 15px;
+    
+}
+
+.post2{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1100px;      
+    /* text-align: left;  */
+    /* margin-top: 20px; */
+    font-size: 25px;
+}
+.table-set {
+    margin-left: 200px;
+   /* padding-bottom: 50px; */
+    font-size: 20px;
+}
+.table-set td{
+    padding-top: 30px;
+}
+
+#post2{
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+#bidList{
+    width: 24%;
+    height: 40%;
+    float: left;
+    /* border: 1px solid red; */
+    height: 300px;
+    font-size: 20px;
+    color: #25bc74;
+}
+#auction-table1{
+    width: 75%;
+    height: 40%;
+    float: left;
+    /* border: 1px solid blue; */
+    height: 1100px;
+}
+
+#auction-table2{
+    width: 75%;
+    height: 40%;
+    float: left;
+    /* border: 1px solid blue; */
+    height: 1100px;
+}
+
+
+#auction{
+    width: 80%;
+    height: 150px;
+    /* border: 1px soli yellowgreen; */
+    border-radius: 15px;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+    box-shadow:3px 3px 2px 2px #25bc74;
+    
+}
+
+
+
+#sellimg1{
+    width: 160px;
+    height: 160px;
+    /* background-color: coral; */
+    float: left;
+
+}
+#sellimg2{
+    width: 330px;
+    height: 140px;
+    /* background-color: yellow; */
+    float: left;
+    padding-left: 20px;
+    padding-top: 25px;
+
+
+}
+#sellimg3{
+    width: 95px;
+    height: 140px;
+    /* background-color: skyblue; */
+    float:right ;
+    padding-top: 25px;
+    color: red;
+
+}
+
+#sellimg1>img{
+    width: 150px;
+    border-radius: 15px;
+    margin-top: 25px;
+    margin-left: 15px;
+
+}
+
+#sellimg2>div:first-child{
+    margin-bottom: 25px
+}
+#sellimg3>div:first-child{
+    margin-bottom: 25px
+}
+
+#post5{
+    width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#post5-category{
+    float: left;
+    width: 150px;
+    height: 600px;
+    /* border: 1px solid black; */
+}
+
+#post5-list{
+    float: left;
+    width: 940px;
+    height: 600px;
+    /* border: 1px solid red; */
+    
+    /* text-align:center; */
+}
+.post5-category-list{
+   width:150px;
+   height:30px;
+   background-color: #25bc74;
+   color:white;
+   /* border-radius:10px; */
+   text-align:center;
+   border:1px solid #078548;
+   /* cursor:pointer; */
+} 
+
+.contents1>div{
+    width:150px;
+    height:30px;
+    color:white;
+    /* border-radius:10px; */
+    /* background: #a5d8bf; */
+    border: 1px solid #72dba8;;
+    text-align:center;
+}
+
+.contents1{
+   border:1px solid lightgray;
+   width:150px;
+   height:100px;
+   background: #a5d8bf;
+   display:none;
+   /* display:block; */
+}
+
+.post5-product{
+    margin-top: 20px;
+    margin-left: 25px;
+    display: inline-block;
+}
+
+.post5-title{
+    width: 200px;
+    height: 20px;
+    overflow: hidden;
+    /* display: inline-block; */
+}
+
+.post5-product>img{
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+}
