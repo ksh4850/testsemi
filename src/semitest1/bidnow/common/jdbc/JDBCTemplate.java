@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -81,6 +82,18 @@ public class JDBCTemplate {
 		try {
 			if(pstmt != null && !pstmt.isClosed()) {
 				pstmt.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public static void close(ResultSet rset) {
+		
+		try {
+			if(rset != null && !rset.isClosed()) {
+				rset.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -7,11 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%-- <jsp:forward page="/WEB-INF/views/main/main.jsp"></jsp:forward> --%>
-	<%-- <jsp:forward page="/WEB-INF/views/auction/postCategoryList.jsp"></jsp:forward> --%>
+	<jsp:forward page="/WEB-INF/views/main/main.jsp"></jsp:forward> 
+	<%--  <jsp:forward page="/WEB-INF/views/auction/postCategoryList.jsp"></jsp:forward> --%> 
 	
 	
-	<jsp:forward page="/WEB-INF/views/main/test.jsp"></jsp:forward>
+	<%-- <jsp:forward page="/WEB-INF/views/main/test.jsp"></jsp:forward> --%>
 	
 </body>
 </html>

@@ -14,9 +14,9 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/ojdbc6.jar"/>
+	<classpathentry kind="lib" path="web/WEB-INF/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="web/WEB-INF/lib/spring-security-crypto-5.3.4.RELEASE.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

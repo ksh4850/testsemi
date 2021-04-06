@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="insertUser">
+		INSERT /*semitest1.bidnow.user.model.dao.UserDAO#insertUser */
+		  INTO TBL_USER 
+		(
+		  USER_NO
+		, ID
+		, PWD
+		, NAME
+		, ADDRESS
+		, MOBILE
+		, EMAIL
+		, REGST_DAY
+		, LEAVE_CHK
+		, DEPOSIT
+		, LV_CODE
+		, IDENTIFIED_CHK
+		, LOCATION_ACCEPT
+		, MKT_ACCEPT
+		, DEALING_SCORE
+		) 
+		VALUES
+		(
+		  'U'|| SEQ_TBL_USER.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, ?
+		, ?
+		, ?
+		, SYSDATE
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, DEFAULT
+		, 0
+		)
+	
+	</entry>
+	
+	<entry key="userLoginSelect">
+		SELECT  /* semitest1.bidnow.user.model.dao.UserDAO#userLoginSelect */
+		       A.USER_NO
+		     , A.ID
+		     , A.PWD
+		     , A.NAME
+		     , A.ADDRESS
+		     , A.MOBILE
+		     , A.EMAIL
+		     , A.REGST_DAY
+		     , B.LV_NAME
+		  FROM TBL_USER A
+ 		  JOIN TBL_USER_LV B ON(A.LV_CODE = B.LV_CODE)
+ 		 WHERE A.ID = ?
+	
+	</entry>
+
+</properties>

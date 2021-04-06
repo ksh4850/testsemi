@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+	<c:if test="${empty sessionScope.userloing }">
 	   <div id="container">
         <!-- <div class="topMargin"></div> -->
     <div id="mainHeader">
@@ -17,10 +20,27 @@
             <button id="header-searchBtn" type="submit"> &nbsp;</button>
         </div>
         <div class="header-btn">
-            <input type="button" id="loginBtn" onclick="location.href='login.html'">
-            <input type="button" id="regstBtn" onclick="location.href='regist.html'">
+            <input type="button" id="loginBtn" >
+            <input type="button" id="regstBtn" >
         </div>
     </div>
     </div>
+    </c:if>
+    <c:if test="${!empty sessionScope.userloing }">
+	   <div id="container">
+        <!-- <div class="topMargin"></div> -->
+    <div id="mainHeader">
+        <img class="mainHeaderImg" src="/semitest1/resources/image/HEADER2.png">
+        <div class="header-search"> 
+            <input id="header-searchInput" type="search" width="300px">
+            <button id="header-searchBtn" type="submit"> &nbsp;</button>
+        </div>
+        <div class="header-btn">
+            <input type="button" id="logoutBtn" >
+            <input type="button" id="myPageBtn" >
+        </div>
+    </div>
+    </div>
+    </c:if>
 </body>
 </html>
