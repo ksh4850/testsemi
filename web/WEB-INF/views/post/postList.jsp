@@ -77,7 +77,7 @@
         <div class="contents1">
             <div class="post5-s-category" id ="S0028">티켓/쿠폰/상품권</div>
             <div class="post5-s-category" id ="S0029">핸드메이드</div>
-            <div class="post5-s-category" id ="S0030">기타</div>
+            <div class="post5-s-category" id ="S0030">${requestScope.postList[0].category.ctgSCode }</div>
         
         </div>
 
@@ -143,36 +143,12 @@
     	
     
      <script>
-
-    	$(function(){
-    		
-    		
-            $(".post5-category-list").click(function(){
-           
-            //2.display속성으로 해보기ㅏ
-            if($(this).next().css("display") == "none" ){
-                $(this).next().slideDown();
-            }else{
-                $(this).next().slideUp();
-            }
-
-      		  })
-      		  
-      		  $('.post5-s-category').click (function(){
-            		console.log($(this).attr("id"));
-            		var scategory = $(this).attr("id");
-            	location.href="${pageContext.servletContext.contextPath}/post/list/s?scategory=" + scategory;	
-         	})
-
-         	
-      		  
-       	})
-       	
-       	const link = "${ pageContext.servletContext.contextPath }/post/list/l";
+     
+     	const link = "${ pageContext.servletContext.contextPath }/post/list";
 		
 		/* 원하는 페이지 클릭시 실행되는 콜백 함수 */
 		function pageButtonAction(text) {
-			 location.href = link + "?currentPage=" + text + "&lcategory=${requestScope.postList[0].category.ctgLCode }" ;
+			 location.href = link + "?currentPage=" + text + "&scategory=${requestScope.postList[0].category.ctgSCode}&lcategory=${requestScope.postList[1].category.ctgLCode } " ;
 			 
 			
 			
@@ -205,6 +181,34 @@
 				location.href = link + "?currentPage=${ requestScope.pageInfo.pageNo + 1 }";
 			}
 		}
+		
+		
+
+    	$(function(){
+    		
+    		
+            $(".post5-category-list").click(function(){
+           
+         
+            if($(this).next().css("display") == "none" ){
+                $(this).next().slideDown();
+            }else{
+                $(this).next().slideUp();
+            }
+
+      		  })
+      		  
+      		  $('.post5-s-category').click (function(){
+            		console.log($(this).attr("id"));
+            		var scategory = $(this).attr("id");
+            	location.href="${pageContext.servletContext.contextPath}/post/list?scategory=" + scategory;	
+         	})  
+
+         	
+      		  
+       	})
+       	
+       	
         
 
 

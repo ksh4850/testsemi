@@ -26,9 +26,9 @@
 		  ORDER BY A.POST_NO DESC
 	
 	</entry> -->
-	
-	<entry key="selectTotalCount">
-		 SELECT  /* semitest1.bidnow.post.model.dao.PostDAO#selectTotalCount*/
+	<!-- 대분류 카테고리 게시물 총수 -->
+	<entry key="selectLaryTotalCount">
+		 SELECT  /* semitest1.bidnow.post.model.dao.PostDAO#selectLaryTotalCount*/
 		        COUNT(*)
  		  FROM TBL_POST A 
 		   JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
@@ -37,8 +37,20 @@
 		    AND A.POST_CHK = 'Y'
 	</entry>
 	
-	<entry key="selectpostList">
-		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectpostList*/
+	<!-- 소분류 카테고리 게시물 총수 -->
+	<entry key="selectSmallTotalCount">
+		 SELECT  /* semitest1.bidnow.post.model.dao.PostDAO#selectSmallTotalCount*/
+		        COUNT(*)
+ 		  FROM TBL_POST A 
+		   JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
+		   JOIN TBL_L_CATEGORY C ON (B.L_CTG_CODE = C.L_CTG_CODE)
+		  WHERE B.S_CTG_CODE = ?
+		    AND A.POST_CHK = 'Y'
+	</entry>
+	
+	<!-- 대분류카테고리 게시물조회 -->
+	<entry key="selectpostLaryList">
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectpostLaryList*/
 		       E.RNUM
 		     , E.POST_NO
 		     , E.SELLER_NO
@@ -92,9 +104,75 @@
                             , B.S_CTG_NAME
                             , C.L_CTG_NAME
                          FROM TBL_POST A 
-                                 JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
+                         JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
                          JOIN TBL_L_CATEGORY C ON (B.L_CTG_CODE = C.L_CTG_CODE)
                         WHERE C.L_CTG_CODE = ?
+                          AND A.POST_CHK = 'Y'
+                        ORDER BY A.POST_NO DESC
+                        ) D
+                ) E
+          WHERE E.RNUM BETWEEN ? AND ?  
+	
+	</entry>
+	
+	<entry key="selectpostSmallList">
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectpostSmallList*/
+		       E.RNUM
+		     , E.POST_NO
+		     , E.SELLER_NO
+		     , E.POSTED_DATE
+		     , E.POST_TITLE
+		     , E.POST_DETAILS
+		     , E.POST_CHK
+		     , E.DEALING_CHK
+		     , E.MIN_PRICE
+		     , E.PICTURE_ROOT
+		     , E.UNOPENED_CHK
+		     , E.BID_END_DATE
+		     , E.BID_STATUS
+		     , E.S_CTG_CODE
+		     , E.L_CTG_CODE
+		     , E.S_CTG_NAME
+		     , E.L_CTG_NAME
+		  FROM (SELECT
+                      ROWNUM RNUM
+                    , D.POST_NO
+                    , D.SELLER_NO
+                    , D.POSTED_DATE
+                    , D.POST_TITLE
+                    , D.POST_DETAILS
+                    , D.POST_CHK
+                    , D.DEALING_CHK
+                    , D.MIN_PRICE
+                    , D.PICTURE_ROOT
+                    , D.UNOPENED_CHK
+                    , D.BID_END_DATE
+                    , D.BID_STATUS
+                    , D.S_CTG_CODE
+                    , D.L_CTG_CODE
+                    , D.S_CTG_NAME
+                    , D.L_CTG_NAME
+                 FROM (SELECT
+                              A.POST_NO
+                            , A.SELLER_NO
+                            , A.POSTED_DATE
+                            , A.POST_TITLE
+                            , A.POST_DETAILS
+                            , A.POST_CHK
+                            , A.DEALING_CHK
+                            , A.MIN_PRICE
+                            , A.PICTURE_ROOT
+                            , A.UNOPENED_CHK
+                            , A.BID_END_DATE
+                            , A.BID_STATUS
+                            , B.S_CTG_CODE
+                            , C.L_CTG_CODE
+                            , B.S_CTG_NAME
+                            , C.L_CTG_NAME
+                         FROM TBL_POST A 
+                         JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
+                         JOIN TBL_L_CATEGORY C ON (B.L_CTG_CODE = C.L_CTG_CODE)
+                        WHERE B.S_CTG_CODE = ?
                           AND A.POST_CHK = 'Y'
                         ORDER BY A.POST_NO DESC
                         ) D
