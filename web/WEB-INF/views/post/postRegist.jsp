@@ -66,7 +66,7 @@
             </div>
             <div align="center" style="font-size: 15px; margin-top: 20px;">
                 <input type="reset" value="게시물 등록 취소" >
-                <input type="submit" value="게시물 등록" ">
+                <input type="submit" value="게시물 등록" >
             </div>
         </form>
     </div>

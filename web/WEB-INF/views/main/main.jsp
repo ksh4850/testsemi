@@ -98,7 +98,7 @@
                  var lcategory = $(this).attr("id");
                  console.log(lcategory);
                  
-                 location.href="${pageContext.servletContext.contextPath}/post/list?lcategory=" + lcategory;
+                 location.href="${pageContext.servletContext.contextPath}/post/list/l?lcategory=" + lcategory;
              })
 
     		

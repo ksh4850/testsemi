@@ -21,9 +21,9 @@ public class UserDAO {
 		prop = new Properties();
 		
 		try {
-			prop.loadFromXML(new FileInputStream(ConfigLocation.MAPPER_LOCATION + "/user/user-query.xml"));
+			prop.loadFromXML(new FileInputStream(ConfigLocation.MAPPER_LOCATION + "/user/user-mapper.xml"));
 			
-			System.out.println("mapper location :" + ConfigLocation.MAPPER_LOCATION + "/user/user-query.xml");
+			System.out.println("mapper location :" + ConfigLocation.MAPPER_LOCATION + "/user/user-mapper.xml");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

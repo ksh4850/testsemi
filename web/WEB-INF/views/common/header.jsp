@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/semitest1/resources/css/hreaderFooter.css">
+<script src="/semitest1/resources/js/event.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
