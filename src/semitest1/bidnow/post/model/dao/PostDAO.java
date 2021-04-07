@@ -162,8 +162,8 @@ public class PostDAO {
 				post.setUnOpenedchk(rset.getString("UNOPENED_CHK"));
 				post.setBidEndDate(rset.getDate("BID_END_DATE"));
 				post.setBidStatus(rset.getString("BID_STATUS"));
-				post.getCategory().setCtgLCode(rset.getString("S_CTG_CODE"));
-				post.getCategory().setCtgLName(rset.getString("S_CTG_NAME"));
+				post.getCategory().setCtgSCode(rset.getString("S_CTG_CODE"));
+				post.getCategory().setCtgSName(rset.getString("S_CTG_NAME"));
 
 				
 				 postList.add(post);

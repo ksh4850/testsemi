@@ -77,7 +77,7 @@
         <div class="contents1">
             <div class="post5-s-category" id ="S0028">티켓/쿠폰/상품권</div>
             <div class="post5-s-category" id ="S0029">핸드메이드</div>
-            <div class="post5-s-category" id ="S0030">${requestScope.postList[0].category.ctgSCode }</div>
+            <div class="post5-s-category" id ="S0030">기타</div>
         
         </div>
 
@@ -148,7 +148,7 @@
 		
 		/* 원하는 페이지 클릭시 실행되는 콜백 함수 */
 		function pageButtonAction(text) {
-			 location.href = link + "?currentPage=" + text + "&scategory=${requestScope.postList[0].category.ctgSCode}&lcategory=${requestScope.postList[1].category.ctgLCode } " ;
+			 location.href = link + "?currentPage=" + text + "&scategory=${requestScope.postList[0].category.ctgSCode}&lcategory=${requestScope.postList[0].category.ctgLCode } " ;
 			 
 			
 			

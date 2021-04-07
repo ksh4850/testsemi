@@ -33,6 +33,8 @@ public class PostListServlet extends HttpServlet {
 		//전에 페이지 수 
 		String currentPage = request.getParameter("currentPage");
 		
+		System.out.println("currentPage"+currentPage);
+		
 		int pageNo = 1;
 		
 		if(currentPage != null && !"".equals(currentPage)) {
@@ -83,7 +85,7 @@ public class PostListServlet extends HttpServlet {
 		if(scategory != null && !"".equals(scategory)) {
 			postList = postService.selectpostSmellList(scategory , pageInfo);
 		}
-//		System.out.println(postList);
+		System.out.println(postList);
 		
 		
 		String path = "";
