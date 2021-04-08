@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<c:if test="${empty sessionScope.userloing }">
+	<c:if test="${empty sessionScope.loginUser }">
 	   <div id="container">
         <!-- <div class="topMargin"></div> -->
     <div id="mainHeader">
@@ -27,7 +27,7 @@
     </div>
     </div>
     </c:if>
-    <c:if test="${!empty sessionScope.userloing }">
+    <c:if test="${!empty sessionScope.loginUser }">
 	   <div id="container">
         <!-- <div class="topMargin"></div> -->
     <div id="mainHeader">

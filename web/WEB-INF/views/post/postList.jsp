@@ -202,7 +202,12 @@
             		console.log($(this).attr("id"));
             		var scategory = $(this).attr("id");
             	location.href="${pageContext.servletContext.contextPath}/post/list?scategory=" + scategory;	
-         	})  
+         	})
+         	
+         	
+         	$("#createPostBtn").click(function(){
+         		location.href="${pageContext.servletContext.contextPath}/post/regist";
+         	})
 
          	
       		  
