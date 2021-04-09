@@ -18,7 +18,7 @@ public class PostDTO implements java.io.Serializable  {
 	private String postCheck;
 	private String dealingCheck;
 	private int minPrice;
-	private String imgRoot;
+	private List<ImgDTO> img;
 	private String unOpenedchk;
 	private java.sql.Date bidEndDate;
 	private String bidStatus;
@@ -29,7 +29,7 @@ public class PostDTO implements java.io.Serializable  {
 	}
 
 	public PostDTO(String no, UserDTO seller, CategoryDTO category, Date postedDate, String title, String details,
-			String postCheck, String dealingCheck, int minPrice, String imgRoot, String unOpenedchk, Date bidEndDate,
+			String postCheck, String dealingCheck, int minPrice, List<ImgDTO> img, String unOpenedchk, Date bidEndDate,
 			String bidStatus, List<BidDTO> bidList) {
 		super();
 		this.no = no;
@@ -41,7 +41,7 @@ public class PostDTO implements java.io.Serializable  {
 		this.postCheck = postCheck;
 		this.dealingCheck = dealingCheck;
 		this.minPrice = minPrice;
-		this.imgRoot = imgRoot;
+		this.img = img;
 		this.unOpenedchk = unOpenedchk;
 		this.bidEndDate = bidEndDate;
 		this.bidStatus = bidStatus;
@@ -120,12 +120,12 @@ public class PostDTO implements java.io.Serializable  {
 		this.minPrice = minPrice;
 	}
 
-	public String getImgRoot() {
-		return imgRoot;
+	public List<ImgDTO> getImg() {
+		return img;
 	}
 
-	public void setImgRoot(String imgRoot) {
-		this.imgRoot = imgRoot;
+	public void setImg(List<ImgDTO> img) {
+		this.img = img;
 	}
 
 	public String getUnOpenedchk() {
@@ -168,9 +168,11 @@ public class PostDTO implements java.io.Serializable  {
 	public String toString() {
 		return "PostDTO [no=" + no + ", seller=" + seller + ", category=" + category + ", postedDate=" + postedDate
 				+ ", title=" + title + ", details=" + details + ", postCheck=" + postCheck + ", dealingCheck="
-				+ dealingCheck + ", minPrice=" + minPrice + ", imgRoot=" + imgRoot + ", unOpenedchk=" + unOpenedchk
+				+ dealingCheck + ", minPrice=" + minPrice + ", img=" + img + ", unOpenedchk=" + unOpenedchk
 				+ ", bidEndDate=" + bidEndDate + ", bidStatus=" + bidStatus + ", bidList=" + bidList + "]";
 	}
+
+	
 
 		
 	

@@ -67,7 +67,7 @@ public class PostDAO {
 				post.setPostCheck(rset.getString("POST_CHK"));
 				post.setDealingCheck(rset.getString("DEALING_CHK"));
 				post.setMinPrice(rset.getInt("MIN_PRICE"));
-				post.setImgRoot(rset.getString("PICTURE_ROOT"));
+//				post.setImgRoot(rset.getString("PICTURE_ROOT"));
 				post.setUnOpenedchk(rset.getString("UNOPENED_CHK"));
 				post.setBidEndDate(rset.getDate("BID_END_DATE"));
 				post.setBidStatus(rset.getString("BID_STATUS"));
