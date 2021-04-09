@@ -22,6 +22,8 @@ import net.coobird.thumbnailator.Thumbnails;
 import semitest1.bidnow.post.model.dto.CategoryDTO;
 import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
+import semitest1.bidnow.post.model.service.PostService;
+import semitest1.bidnow.user.model.dto.UserDTO;
 
 /**
  * Servlet implementation class PostRegistServlet
@@ -46,6 +48,15 @@ public class PostRegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String path ="/WEB-INF/views/post/postRegist.jsp";
+		String backCode1 =request.getParameter("backCode1");
+		String backCode2 =request.getParameter("backCode2");
+		
+//		System.out.println("get1" + backCode1);
+//		System.out.println("get1" + backCode2);
+		//전에 있던 카테고리 코드 값 넘겨 받아서 화면단으로 넘겨줌
+		//게시물등록을 취소하면 다시 보던화면으로 돌아가기 위해서!!
+		request.setAttribute("backCode1", backCode1);
+		request.setAttribute("backCode2", backCode2);
 		
 		request.getRequestDispatcher(path).forward(request, response);
 	}
@@ -98,7 +109,7 @@ public class PostRegistServlet extends HttpServlet {
 //				}
 				
 				for(int i = 0 ; i < fileItems.size() ; i++) {
-						
+					
 					FileItem file = fileItems.get(i);
 					
 					if(!file.isFormField()) { //isFormField (false = file , true =data(no file))
@@ -196,10 +207,41 @@ public class PostRegistServlet extends HttpServlet {
 			postDTO.setTitle(postInfo.get("title"));
 			postDTO.setDetails(postInfo.get("details"));
 			postDTO.setMinPrice(Integer.valueOf(postInfo.get("minPrice")));
-			postDTO.setUnOpenedchk(postInfo.get("unOpenedchk"));
 			
+			if(postInfo.get("unOpenedchk") == null) {
+				postDTO.setUnOpenedchk("N");
+			}else {
+				postDTO.setUnOpenedchk("Y");
+			}
+			postDTO.setBidEndDate(new java.sql.Timestamp(System.currentTimeMillis()+259200000));
 			
-			System.out.println(postDTO.toString());
+			UserDTO user = (UserDTO)request.getSession().getAttribute("loginUser");
+			postDTO.setSeller(new UserDTO());
+			postDTO.getSeller().setNo(user.getNo());
+			
+
+//			System.out.println(postDTO.toString());
+			
+			int result = new PostService().PostRegist(postDTO);
+			
+			String page ="";
+			
+			if(result > 0) {
+				
+				page = "/WEB-INF/views/common/success.jsp";
+				
+				request.setAttribute("successCode", "PostRegist");
+				request.setAttribute("scategory", postDTO.getCategory().getCtgSCode());
+				
+				
+			} else {
+				
+				page = "/WEB-INF/views/common/failed.jsp";
+				
+				request.setAttribute("message", "게시물 등록실패! 실패!");
+			}
+
+			request.getRequestDispatcher(page).forward(request, response);
 			
 			
 			

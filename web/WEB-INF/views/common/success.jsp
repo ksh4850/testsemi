@@ -33,6 +33,10 @@
 			case "login" :
 				successMessage = "로그인 되었습니다.";
 				movePath = "${ pageContext.servletContext.contextPath }/index.jsp";
+				break;
+			case "PostRegist" :
+				successMessage = "게시물이 등록 되었습니다.";
+				movePath = "${ pageContext.servletContext.contextPath }/post/list?scategory=${requestScope.scategory}";
 				break;	
 		}
 		

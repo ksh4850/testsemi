@@ -77,7 +77,7 @@
         <div class="contents1">
             <div class="post5-s-category" id ="S0028">티켓/쿠폰/상품권</div>
             <div class="post5-s-category" id ="S0029">핸드메이드</div>
-            <div class="post5-s-category" id ="S0030">기타</div>
+            <div class="post5-s-category" id ="S0030">${sessionScope.loginUser.no}</div>
         
         </div>
 
@@ -206,7 +206,7 @@
          	
          	
          	$("#createPostBtn").click(function(){
-         		location.href="${pageContext.servletContext.contextPath}/post/regist";
+         		location.href="${pageContext.servletContext.contextPath}/post/regist?backCode1=${requestScope.postList[0].category.ctgSCode}&backCode2=${requestScope.postList[0].category.ctgLCode }";
          	})
 
          	

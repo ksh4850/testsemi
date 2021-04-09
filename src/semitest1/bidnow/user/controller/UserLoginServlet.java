@@ -34,8 +34,8 @@ public class UserLoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String userpwd = request.getParameter("userPwd");
 		
-		System.out.println("userpwd :" + userpwd);
-		System.out.println("userId :" + userId);
+//		System.out.println("userpwd :" + userpwd);
+//		System.out.println("userId :" + userId);
 		
 		UserDTO user = new UserDTO();
 		user.setId(userId);
@@ -48,6 +48,7 @@ public class UserLoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
+
 			path = "/WEB-INF/views/common/success.jsp";
 			request.setAttribute("successCode", "login");
 			

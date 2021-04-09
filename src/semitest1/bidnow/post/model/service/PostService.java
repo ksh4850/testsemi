@@ -1,7 +1,9 @@
 package semitest1.bidnow.post.model.service;
 
 import static semitest1.bidnow.common.jdbc.JDBCTemplate.close;
+import static semitest1.bidnow.common.jdbc.JDBCTemplate.commit;
 import static semitest1.bidnow.common.jdbc.JDBCTemplate.getConnection;
+import static semitest1.bidnow.common.jdbc.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -77,6 +79,34 @@ public class PostService {
 		return totalCount;
 		
 		
+	}
+
+
+
+
+	public int PostRegist(PostDTO postDTO) {
+		
+		Connection con = getConnection();
+		
+		int insetPostResult = postDAO.inserPostRegist(postDTO , con);
+		int imgResult = 0;
+//		System.out.println("insetPostResult :" + insetPostResult);
+		if(insetPostResult > 0) {
+		
+			String postNo = postDAO.selectPostNo(con,postDTO.getSeller().getNo());
+			
+//			System.out.println("postNo : " + postNo);
+			imgResult = postDAO.inserPostImg(postDTO , con ,postNo);
+			
+			if(imgResult > 0) {
+				commit(con);
+			}else{
+				rollback(con);
+			}
+		}
+		close(con);
+		
+		return imgResult;
 	}
 
 }

@@ -34,8 +34,9 @@
                         </select>
                         <select name=sCategory> 
                             <option value="" aria-checked="">소분류</option>
-                            <option value="s0001">옷</option>
-                            <option value="s0002">신발</option>
+                            <option value="S0001">옷</option>
+                            <option value="S0002">가방</option>
+                            <option value="S0002">시계</option>
                         </select>
                     </td>
                 </tr>
@@ -69,14 +70,28 @@
 
             </div>
             <div align="center" style="font-size: 15px; margin-top: 20px;">
-                <input type="reset" value="게시물 등록 취소" >
+                <input type="button" id="postRegistcancel" value="게시물 등록취소" ><button type="submit">게시물 등록</button>
                 
             </div>
-            <button type="submit">게시물 등록</button>
+            
         </form>
     </div>
     
      <jsp:include page="../common/footer.jsp"></jsp:include>
+     	
+     	
+     
+     <script>
+     	
+     $("#postRegistcancel").click (function(){
+ 		
+ 		
+ 	location.href="${pageContext.servletContext.contextPath}/post/list?scategory=${requestScope.backCode1 }&lcategory=${requestScope.backCode2 }";	
+	})
+     	
+     	
+     
+     </script>
      
      
 </body>

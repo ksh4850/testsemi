@@ -26,14 +26,14 @@ public class PostListServlet extends HttpServlet {
 		String lcategory = request.getParameter("lcategory");
 		String scategory = request.getParameter("scategory");
 	
-		System.out.println("lcategory : " + lcategory);
-		System.out.println("scategory : " + scategory);
+//		System.out.println("lcategory : " + lcategory);
+//		System.out.println("scategory : " + scategory);
 		
 		
 		//전에 페이지 수 
 		String currentPage = request.getParameter("currentPage");
 		
-		System.out.println("currentPage"+currentPage);
+//		System.out.println("currentPage"+currentPage);
 		
 		int pageNo = 1;
 		
@@ -62,7 +62,7 @@ public class PostListServlet extends HttpServlet {
 			totalCount = postService.selectSmallTotalCount(scategory);
 		}
 		
-		System.out.println("게시 가능한 게시물의 총 갯수 : " + totalCount );
+//		System.out.println("게시 가능한 게시물의 총 갯수 : " + totalCount );
 		
 		//한페이지에 보일 게시물수
 		int limit = 12 ;
@@ -85,7 +85,7 @@ public class PostListServlet extends HttpServlet {
 		if(scategory != null && !"".equals(scategory)) {
 			postList = postService.selectpostSmellList(scategory , pageInfo);
 		}
-		System.out.println(postList);
+//		System.out.println(postList);
 		
 		
 		String path = "";

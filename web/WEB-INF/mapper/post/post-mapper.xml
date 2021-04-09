@@ -60,7 +60,6 @@
 		     , E.POST_CHK
 		     , E.DEALING_CHK
 		     , E.MIN_PRICE
-		     , E.PICTURE_ROOT
 		     , E.UNOPENED_CHK
 		     , E.BID_END_DATE
 		     , E.BID_STATUS
@@ -78,7 +77,6 @@
                     , D.POST_CHK
                     , D.DEALING_CHK
                     , D.MIN_PRICE
-                    , D.PICTURE_ROOT
                     , D.UNOPENED_CHK
                     , D.BID_END_DATE
                     , D.BID_STATUS
@@ -95,7 +93,6 @@
                             , A.POST_CHK
                             , A.DEALING_CHK
                             , A.MIN_PRICE
-                            , A.PICTURE_ROOT
                             , A.UNOPENED_CHK
                             , A.BID_END_DATE
                             , A.BID_STATUS
@@ -126,7 +123,6 @@
 		     , E.POST_CHK
 		     , E.DEALING_CHK
 		     , E.MIN_PRICE
-		     , E.PICTURE_ROOT
 		     , E.UNOPENED_CHK
 		     , E.BID_END_DATE
 		     , E.BID_STATUS
@@ -144,7 +140,6 @@
                     , D.POST_CHK
                     , D.DEALING_CHK
                     , D.MIN_PRICE
-                    , D.PICTURE_ROOT
                     , D.UNOPENED_CHK
                     , D.BID_END_DATE
                     , D.BID_STATUS
@@ -161,7 +156,6 @@
                             , A.POST_CHK
                             , A.DEALING_CHK
                             , A.MIN_PRICE
-                            , A.PICTURE_ROOT
                             , A.UNOPENED_CHK
                             , A.BID_END_DATE
                             , A.BID_STATUS
@@ -178,6 +172,70 @@
                         ) D
                 ) E
           WHERE E.RNUM BETWEEN ? AND ?  
+	
+	</entry>
+	
+	<entry key="inserPostRegist">
+		INSERT	/* semitest1.bidnow.post.model.dao.PostDAO#inserPostRegist*/
+		  INTO TBL_POST
+		  (
+		  	POST_NO
+		  , SELLER_NO
+		  , S_CTG_CODE
+		  , POSTED_DATE
+		  , POST_TITLE
+		  , POST_DETAILS
+		  , POST_CHK
+		  , DEALING_CHK
+	      , MIN_PRICE
+		  , UNOPENED_CHK
+	      , BID_END_DATE
+		  , BID_STATUS
+		  )
+		  VALUES
+		 (
+		    'P'||SEQ_TBL_POST.NEXTVAL
+		  , ?
+		  , ?
+		  , SYSDATE
+		  , ?
+		  , ?
+		  , DEFAULT
+		  , DEFAULT
+          , ?
+		  , ? 
+		  , ?
+		  , DEFAULT
+		  )
+	</entry>
+	
+	<entry key="selectPostNo">
+		SELECT
+		     MAX(A.POST_NO)
+		FROM TBL_POST A
+		JOIN TBL_USER B ON(A.SELLER_NO = B.USER_NO)
+		WHERE B.USER_NO= ?
+	</entry>
+	
+	<entry key="insertPostImg">
+		INSERT
+		  INTO TBL_POST_PIC
+		(
+		  FILE_NO
+		, POST_NO
+        , ORG_FILE_NAME
+        , RN_FILE_NAME
+        , THN_FILE_NAME
+		)
+		VALUES
+		(
+		  SEQ_TBL_POST_PIC.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, ?   
+		)
+		  
 	
 	</entry>
 

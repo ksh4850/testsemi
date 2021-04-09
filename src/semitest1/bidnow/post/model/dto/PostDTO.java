@@ -1,6 +1,7 @@
 package semitest1.bidnow.post.model.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import semitest1.bidnow.user.model.dto.UserDTO;
@@ -20,7 +21,7 @@ public class PostDTO implements java.io.Serializable  {
 	private int minPrice;
 	private List<ImgDTO> img;
 	private String unOpenedchk;
-	private java.sql.Date bidEndDate;
+	private java.sql.Timestamp bidEndDate;
 	private String bidStatus;
 	private List<BidDTO> bidList;
 	
@@ -29,8 +30,8 @@ public class PostDTO implements java.io.Serializable  {
 	}
 
 	public PostDTO(String no, UserDTO seller, CategoryDTO category, Date postedDate, String title, String details,
-			String postCheck, String dealingCheck, int minPrice, List<ImgDTO> img, String unOpenedchk, Date bidEndDate,
-			String bidStatus, List<BidDTO> bidList) {
+			String postCheck, String dealingCheck, int minPrice, List<ImgDTO> img, String unOpenedchk,
+			Timestamp bidEndDate, String bidStatus, List<BidDTO> bidList) {
 		super();
 		this.no = no;
 		this.seller = seller;
@@ -136,11 +137,11 @@ public class PostDTO implements java.io.Serializable  {
 		this.unOpenedchk = unOpenedchk;
 	}
 
-	public java.sql.Date getBidEndDate() {
+	public java.sql.Timestamp getBidEndDate() {
 		return bidEndDate;
 	}
 
-	public void setBidEndDate(java.sql.Date bidEndDate) {
+	public void setBidEndDate(java.sql.Timestamp bidEndDate) {
 		this.bidEndDate = bidEndDate;
 	}
 
@@ -171,6 +172,9 @@ public class PostDTO implements java.io.Serializable  {
 				+ dealingCheck + ", minPrice=" + minPrice + ", img=" + img + ", unOpenedchk=" + unOpenedchk
 				+ ", bidEndDate=" + bidEndDate + ", bidStatus=" + bidStatus + ", bidList=" + bidList + "]";
 	}
+
+	
+
 
 	
 
