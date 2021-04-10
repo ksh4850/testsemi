@@ -314,13 +314,24 @@
 			AND BID_STATUS = 'N'
 	</entry>
 	
+	<!-- 투찰 취소 -->
 	<entry key="insertBidCancel">
-		UPDATE
+		UPDATE	/* semitest1.bidnow.post.model.dao.PostDAO#insertBidCancel*/
 		       TBL_BID
 		   SET BID_STATUS = 'Y'
 		 WHERE POST_NO = ? 
  		  AND PURCHASER_NO = ?
 	
+	</entry>
+	
+	<!-- 게시물 작성 소분류 카테고리 셀렉 -->
+	<entry key="selectSCategoryList">
+		SELECT
+		       S_CTG_CODE
+		     , S_CTG_NAME
+		     , L_CTG_CODE
+		  FROM TBL_S_CATEGORY 
+		 WHERE L_CTG_CODE = ?
 	</entry>
 	
 

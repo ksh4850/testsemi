@@ -11,6 +11,7 @@ import java.util.List;
 import semitest1.bidnow.common.PageInfoDTO;
 import semitest1.bidnow.post.model.dao.PostDAO;
 import semitest1.bidnow.post.model.dto.BidDTO;
+import semitest1.bidnow.post.model.dto.CategoryDTO;
 import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
 
@@ -176,7 +177,7 @@ public class PostService {
 		}else {
 			rollback(con);
 		}
-		
+		close(con);
 		
 		return result;
 	}
@@ -190,7 +191,7 @@ public class PostService {
 		
 		List<BidDTO> bidList = postDAO.selectAjaxBidList(con, postNo);
 		
-		
+		close(con);
 		
 		return bidList;
 	}
@@ -200,7 +201,7 @@ public class PostService {
 	//투찰 취소 업데이트
 	public int insertBidCancel(String postNo, String userNo) {
 
-Connection con = getConnection();
+		Connection con = getConnection();
 		
 		int result = postDAO.insertBidCancel(con ,postNo,userNo);
 		
@@ -210,10 +211,37 @@ Connection con = getConnection();
 			rollback(con);
 		}
 		
-		
+		close(con);
 		return result;
 		
 	
+	}
+
+
+
+
+	public List<CategoryDTO> selectSCategoryList(String lcategory) {
+		
+		Connection con = getConnection();
+		
+		List<CategoryDTO> categortList = postDAO.selectSCategoryList(con ,lcategory);
+		
+		close(con);
+		
+		return categortList;
+	}
+
+
+
+
+	public PostDTO selectUpdatePostDtail(String postNo) {
+		
+		Connection con = getConnection();
+		
+		PostDTO postDTO = postDAO.selectUpdatePostDtail(con, postNo);
+		
+		
+		return postDTO;
 	}
 
 }

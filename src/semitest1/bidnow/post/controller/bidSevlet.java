@@ -48,7 +48,7 @@ public class bidSevlet extends HttpServlet {
 
 			
 			
-		System.out.println("gson 변환 : "+gson);
+//		System.out.println("gson 변환 : "+gson);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();

@@ -446,6 +446,7 @@ public class PostDAO {
 		
 	}
 
+	//게시물 비드리스트 셀렉
 	public List<BidDTO> selectPostDetailbidList(Connection con, String postNo) {
 
 		PreparedStatement pstmt = null;
@@ -493,7 +494,8 @@ public class PostDAO {
 		
 		return bidList;
 	}
-
+	
+	//투찰 인설트
 	public int insertBid(Connection con,String postNo, String userNo, int bidPrice) {
 		
 		PreparedStatement pstmt = null;
@@ -570,7 +572,8 @@ public class PostDAO {
 		return bidList;
 		
 	}
-
+	
+	//경매취소 업데이트
 	public int insertBidCancel(Connection con, String postNo, String userNo) {
 		
 		PreparedStatement pstmt = null;
@@ -597,6 +600,103 @@ public class PostDAO {
 		
 		
 		return result;
+		
+		
+	}
+	
+	//게시물작성 ajax 소분류 카테고리 셀렉
+	public List<CategoryDTO> selectSCategoryList(Connection con, String lcategory) {
+
+		
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<CategoryDTO> categoryList = null;
+		
+		
+		CategoryDTO category = null;
+		
+		String query = prop.getProperty("selectSCategoryList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, lcategory);
+			
+			
+			rset = pstmt.executeQuery();
+			
+			categoryList =new ArrayList<>();
+					
+			while(rset.next()) {
+				category = new CategoryDTO();
+				
+				category.setCtgSCode(rset.getString("S_CTG_CODE"));
+				category.setCtgSName(rset.getString("S_CTG_NAME"));
+				
+				categoryList.add(category);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		
+		return categoryList;
+	}
+	
+	//게시물 수정 셀렉
+	public PostDTO selectUpdatePostDtail(Connection con, String postNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PostDTO	post =null;
+		
+		String query = prop.getProperty("selectPostDtail");
+		
+		try {
+			pstmt =con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				post = new PostDTO();
+				post.setSeller(new UserDTO());
+				post.setCategory(new CategoryDTO());
+				
+				post.setNo(rset.getString("POST_NO"));
+				post.getSeller().setNo(rset.getString("SELLER_NO"));
+				post.setPostedDate(rset.getDate("POSTED_DATE"));
+				post.setTitle(rset.getString("POST_TITLE"));
+				post.setDetails(rset.getString("POST_DETAILS"));
+				post.setPostCheck(rset.getString("POST_CHK"));
+				post.setDealingCheck(rset.getString("DEALING_CHK"));
+				post.setMinPrice(rset.getInt("MIN_PRICE"));
+				post.setUnOpenedchk(rset.getString("UNOPENED_CHK"));
+				post.setBidEndDate(rset.getTimestamp("BID_END_DATE"));
+				post.setBidStatus(rset.getString("BID_STATUS"));
+				post.getCategory().setCtgSCode(rset.getString("S_CTG_CODE"));
+				post.getCategory().setCtgSName(rset.getString("S_CTG_NAME"));
+
+
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return post;
 		
 		
 	}

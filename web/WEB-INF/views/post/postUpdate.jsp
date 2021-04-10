@@ -19,7 +19,7 @@
              	    <tr>
                     <td ><label>카테고리 목록 : </label></td>
                     <td >
-                        <select name="lCategory" id="lCategory" > 
+                        <select name="lCategory"  > 
                             <option  value="L0000" aria-checked="">대분류</option>
                             <option value="L0001">패션의류/잡화</option>
                             <option value="L0002">가전/전자</option>
@@ -32,18 +32,19 @@
                             <option value="L0009">가구/인테리어</option>
                             <option value="L0010">기타</option>
                         </select>
-                        <select name=sCategory id="sCategory"> 
+                        <select name=sCategory> 
                             <option value="" aria-checked="">소분류</option>
+                          
                         </select>
                     </td>
                 </tr>
                 <tr>
                     <td ><label >게시물 제목 : </label></td>
-                    <td><input type="text" name="title" required></td>
+                    <td><input type="text" name="title" value="${requestScope.postDTO.title}" required></td>
                 </tr>
                 <tr>
                     <td ><label style="padding-bottom: 250px;">게시물 내용 : </label></td>
-                    <td><textarea name="details" id="" cols="30" rows="10" required></textarea></td>
+                    <td><textarea name="details" id="" cols="30" rows="10" required>${requestScope.postDTO.details }</textarea></td>
                 </tr>
                 <tr>
                     <td ><label >미개봉 여부 : </label></td>
@@ -51,7 +52,7 @@
                 </tr>
                 <tr>
                     <td ><label >최소 입찰가 : </label></td>
-                    <td><input type="number" name="minPrice" step="100" required></td>
+                    <td><input type="number" name="minPrice" step="100" required value="${requestScope.postDTO.minPrice }"></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="font-size: 15px; color: red;"><li>입찰일로 부터 72시간 동안 투찰이 진행됩니다.</li></td>
@@ -79,15 +80,15 @@
      	
      
      <script>
-	     	
-	     $("#postRegistcancel").click (function(){
-	 		
-	 		
-	 		location.href="${pageContext.servletContext.contextPath}/post/postview2?scategory=${requestScope.backCode1 }&lcategory=${requestScope.backCode2 }";	
-		})
-	
-	
-   	   $("#lCategory").change(function(){
+     	
+     $("#postRegistcancel").click (function(){
+ 		
+ 		
+ 	location.href="${pageContext.servletContext.contextPath}/post/detail?postNo=${requestScope.postDTO.no }";	
+	})
+     	
+    
+	 $("#lCategory").change(function(){
 
             var x = $(this).val();
             $.ajax({
@@ -110,7 +111,6 @@
 				}
 			}); 
         })
-     	
      
      </script>
      
