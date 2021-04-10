@@ -1,31 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	<!-- <entry key="selectpostList">
-		 SELECT /* semitest1.bidnow.post.model.dao.PostDAO#selectpostList*/
 
-		        A.POST_NO
-		      , A.SELLER_NO
-		      , A.POSTED_DATE
-		      , A.POST_TITLE
-		      , A.POST_DETAILS
-		      , A.POST_CHK
-		      , A.DEALING_CHK
-		      , A.MIN_PRICE
-		      , A.PICTURE_ROOT
-		      , A.UNOPENED_CHK
-		      , A.BID_END_DATE
-		      , A.BID_STATUS
-		      , B.S_CTG_NAME
-		      , C.L_CTG_NAME
-		   FROM TBL_POST A 
-		   JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
-		   JOIN TBL_L_CATEGORY C ON (B.L_CTG_CODE = C.L_CTG_CODE)
-		  WHERE C.L_CTG_CODE = ?
-		    AND A.POST_CHK = 'Y'
-		  ORDER BY A.POST_NO DESC
-	
-	</entry> -->
 	<!-- 대분류 카테고리 게시물 총수 -->
 	<entry key="selectLaryTotalCount">
 		 SELECT  /* semitest1.bidnow.post.model.dao.PostDAO#selectLaryTotalCount*/
@@ -111,7 +87,7 @@
           WHERE E.RNUM BETWEEN ? AND ?  
 	
 	</entry>
-	
+	<!-- 소분류카테고리 게시물조회 -->
 	<entry key="selectpostSmallList">
 		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectpostSmallList*/
 		       E.RNUM
@@ -175,6 +151,7 @@
 	
 	</entry>
 	
+	<!-- 게시물 인설트 -->
 	<entry key="inserPostRegist">
 		INSERT	/* semitest1.bidnow.post.model.dao.PostDAO#inserPostRegist*/
 		  INTO TBL_POST
@@ -209,16 +186,18 @@
 		  )
 	</entry>
 	
+	<!-- 게시물 인설트시 이미지 인서트에 필요한 게시물 번호 조회 -->
 	<entry key="selectPostNo">
-		SELECT
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectPostNo*/
 		     MAX(A.POST_NO)
 		FROM TBL_POST A
 		JOIN TBL_USER B ON(A.SELLER_NO = B.USER_NO)
 		WHERE B.USER_NO= ?
 	</entry>
 	
+	<!-- 이미지 인설트 -->
 	<entry key="insertPostImg">
-		INSERT
+		INSERT	/* semitest1.bidnow.post.model.dao.PostDAO#insertPostImg*/
 		  INTO TBL_POST_PIC
 		(
 		  FILE_NO
@@ -239,8 +218,9 @@
 	
 	</entry>
 	
+	<!-- 게시물에 필요한 이미지 리스트 셀렉-->
 	<entry key="selectPostImgList">
-		SELECT
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectPostImgList*/
 		    FILE_NO
 		  , POST_NO
 		  , ORG_FILE_NAME
@@ -249,5 +229,99 @@
 		  FROM TBL_POST_PIC
 		  WHERE POST_NO = ?
 	</entry>
+	
+	<entry key="selectPostDtail">
+		 SELECT /* semitest1.bidnow.post.model.dao.PostDAO#selectpostList*/
+                A.POST_NO
+              , A.SELLER_NO
+              , A.POSTED_DATE
+              , A.POST_TITLE
+              , A.POST_DETAILS
+              , A.POST_CHK
+              , A.DEALING_CHK
+              , A.MIN_PRICE
+              , A.UNOPENED_CHK
+              , A.BID_END_DATE
+              , A.BID_STATUS
+              , B.S_CTG_CODE
+              , C.L_CTG_CODE
+              , B.S_CTG_NAME
+              , C.L_CTG_NAME
+           FROM TBL_POST A 
+           JOIN TBL_S_CATEGORY B ON (A.S_CTG_CODE = B.S_CTG_CODE)
+           JOIN TBL_L_CATEGORY C ON (B.L_CTG_CODE = C.L_CTG_CODE)
+		  WHERE A.POST_NO = ?
+		    AND A.POST_CHK = 'Y'
+	</entry> 
+	
+	<!-- 게시물디테일에 필요한 이미지 리스트 셀렉-->
+	<entry key="selectPostDetailImgList">
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectPostDetailImgList*/
+		    FILE_NO
+		  , POST_NO
+		  , ORG_FILE_NAME
+		  , RN_FILE_NAME
+		  , THN_FILE_NAME
+		  FROM TBL_POST_PIC
+		  WHERE POST_NO = ?
+	</entry>
+	<!-- 투찰정보 셀렉 -->
+	<entry key="selectPostDetailBidList">
+		SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectPostDetailBidList*/
+		       BID_NO
+		    , POST_NO
+		    , PURCHASER_NO
+ 		    , BID_PRICE
+ 		    , BID_DATE
+		 	, DEALING_CHK
+		  FROM TBL_BID
+		  WHERE POST_NO = ?
+		    AND BID_STATUS = 'N'
+	</entry>
+	<!-- 투찰 인설트 -->
+	<entry key="insertBid">
+		INSERT 
+		  INTO TBL_BID
+		(
+		  BID_NO
+		, POST_NO
+		, PURCHASER_NO
+		, BID_PRICE
+		, BID_DATE
+		, DEALING_CHK
+		)
+		VALUES
+		(
+		  'B'||SEQ_TBL_BID.NEXTVAL
+		, ?
+		, ? 
+		, ?
+		, SYSDATE
+		, DEFAULT
+		)
+	</entry>
+	<!-- ajax 투찰리스트 셀렉 -->
+	<entry key="selectAjaxBidList">
+			SELECT	/* semitest1.bidnow.post.model.dao.PostDAO#selectAjaxBidList*/
+		       BID_NO
+		    , POST_NO
+		    , PURCHASER_NO
+ 		    , BID_PRICE
+ 		    , BID_DATE
+		 	, DEALING_CHK
+		  FROM TBL_BID
+		  WHERE POST_NO = ?
+			AND BID_STATUS = 'N'
+	</entry>
+	
+	<entry key="insertBidCancel">
+		UPDATE
+		       TBL_BID
+		   SET BID_STATUS = 'Y'
+		 WHERE POST_NO = ? 
+ 		  AND PURCHASER_NO = ?
+	
+	</entry>
+	
 
 </properties>

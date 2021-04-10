@@ -77,7 +77,7 @@
         <div class="contents1">
             <div class="post5-s-category" id ="S0028">티켓/쿠폰/상품권</div>
             <div class="post5-s-category" id ="S0029">핸드메이드</div>
-            <div class="post5-s-category" id ="S0030">${ requestScope.thumbnailLocation}/${ postList[0].img[0].thnFileName}</div>
+            <div class="post5-s-category" id ="S0030">기타</div>
         
         </div>
 
@@ -97,7 +97,7 @@
         <br clear="both">
     	
 		<c:forEach var="post" items="${requestScope.postList }">
-		<div class="post5-product">
+		<div class="post5-product" id="${ post.no}">
             <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ post.img[0].thnFileName}"  width="175px" height="175px" > 
              <div class="post5-title">${ post.title}</div> 
 
@@ -199,7 +199,7 @@
 
       		  })
       		  
-      		  $('.post5-s-category').click (function(){
+      		 $('.post5-s-category').click (function(){
             		console.log($(this).attr("id"));
             		var scategory = $(this).attr("id");
             	location.href="${pageContext.servletContext.contextPath}/post/list?scategory=" + scategory;	
@@ -209,8 +209,14 @@
          	$("#createPostBtn").click(function(){
          		location.href="${pageContext.servletContext.contextPath}/post/regist?backCode1=${requestScope.postList[0].category.ctgSCode}&backCode2=${requestScope.postList[0].category.ctgLCode }";
          	})
-
          	
+         	 $('.post5-product').click (function(){
+            		console.log($(this).attr("id"));
+            		var postNo = $(this).attr("id");
+            	 location.href="${pageContext.servletContext.contextPath}/post/detail?postNo=" + postNo;	 
+         	})
+
+     		
       		  
        	})
        	

@@ -10,6 +10,7 @@ import java.util.List;
 
 import semitest1.bidnow.common.PageInfoDTO;
 import semitest1.bidnow.post.model.dao.PostDAO;
+import semitest1.bidnow.post.model.dto.BidDTO;
 import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
 
@@ -109,19 +110,19 @@ public class PostService {
 
 
 
-
+	//게시물등록
 	public int PostRegist(PostDTO postDTO) {
 		
 		Connection con = getConnection();
 		
 		int insetPostResult = postDAO.inserPostRegist(postDTO , con);
 		int imgResult = 0;
-//		System.out.println("insetPostResult :" + insetPostResult);
+
 		if(insetPostResult > 0) {
 		
 			String postNo = postDAO.selectPostNo(con,postDTO.getSeller().getNo());
 			
-//			System.out.println("postNo : " + postNo);
+
 			imgResult = postDAO.inserPostImg(postDTO , con ,postNo);
 			
 			if(imgResult > 0) {
@@ -133,6 +134,86 @@ public class PostService {
 		close(con);
 		
 		return imgResult;
+	}
+
+
+
+	//게시물 디테일 셀렉
+	public PostDTO selectPostDtail(String postNo ) {
+		
+		Connection con = getConnection();
+		
+		PostDTO postDTO = postDAO.selectPostDtail(con, postNo);
+		
+		List<ImgDTO> imglist = postDAO.selectPostDetailImgList(con, postNo);
+		
+		List<BidDTO> bidList = postDAO.selectPostDetailbidList(con, postNo);
+		
+		postDTO.setImg(imglist);
+		postDTO.setBidList(bidList);
+		
+//		System.out.println(postDTO);
+		
+		
+		close(con);
+		
+		return postDTO;
+	}
+
+
+
+	//투찰 인설트
+	public int insertBid(String postNo, String userNo, int bidPrice) {
+
+		Connection con = getConnection();
+		
+		int result = postDAO.insertBid(con ,postNo,userNo,bidPrice);
+		
+		
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return result;
+	}
+
+
+
+	//비드리스트 셀렉
+	public List<BidDTO> selectAjaxBidList(String postNo) {
+
+		Connection con = getConnection();
+		
+		List<BidDTO> bidList = postDAO.selectAjaxBidList(con, postNo);
+		
+		
+		
+		return bidList;
+	}
+
+
+
+	//투찰 취소 업데이트
+	public int insertBidCancel(String postNo, String userNo) {
+
+Connection con = getConnection();
+		
+		int result = postDAO.insertBidCancel(con ,postNo,userNo);
+		
+		if(result > 0) {
+			commit(con);
+		}else {
+			rollback(con);
+		}
+		
+		
+		return result;
+		
+	
 	}
 
 }

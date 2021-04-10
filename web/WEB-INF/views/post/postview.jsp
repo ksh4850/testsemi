@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,18 +12,19 @@
 <link rel="stylesheet" href="/semitest1/resources/bootstrap-3.3.2-dist/js/npm.js"> 
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/semitest1/resources/css/auction.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
 
 	<jsp:include page="../common/header.jsp"></jsp:include>
 
  	<div class="post">
-        <h1 >게시글제목</h1>
+        <h1 > ${ requestScope.postDTO.title}</h1>
         <hr>
         <!-- width="350px" height="350px" style="margin-top: 25px;  -->
         <div id="post1-main">
             <div id="post1-main-img">
-                 <img src="sample/image/flower1.PNG" id="post1-img" >
+                 <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ postDTO.img[0].thnFileName}" id="post1-img" >
             </div>
 
             <div id="post1-main-info">
@@ -33,13 +35,29 @@
                 </div>
                 <div class="post1-info" style="overflow-y:scroll;">
                     <!-- width:350px; height:80px; -->
-                    <div id="bidPrice"></div>
+                    <div id="bidPrice" style="font-size: 15px;">
+                    	<c:forEach var="bid" items="${requestScope.postDTO.bidList}">
+                    		금액 : ${bid.bidPrice }<br>
+                    	</c:forEach>
+                    </div>
                 </div>
-                <div class="post1-info">
-                    <form action="">
-                        <label style="font-size: 25px;">희망금액 : </label><input type="text" name="">
-                        <button type="submit" style="width: 150px;">투찰하기</button>
-                    </form>
+                <div style="font-size: 25px; margin-top: 20px;">
+                    최소 입찰 금액 : ${requestScope.postDTO.minPrice}
+                </div>
+                <div class="post1-info"> 
+                	<c:if test="${empty requestScope.userBidInfo }">
+	                    <div id="bid">
+	                        <label style="font-size: 25px;">희망금액 : </label><input type=text id="userbidPrice">
+	                        <button type="button" id="bidBtn" style="width: 150px;">투찰하기</button>
+	                    </div>
+                    </c:if>
+                    <c:if test="${!empty requestScope.userBidInfo }">
+	                    <div id="bid">
+	                        <label style="font-size: 25px;">투찰 금액 : ${ requestScope.userBidInfo.bidPrice } </label><br>
+	                        <button type="button" id="bidcancelBtn" style="width: 200px;">취소하기</button>
+	                    </div>
+                    </c:if>
+                 
                 </div>
                 
 
@@ -54,21 +72,7 @@
             </ul>
             <div  width="1000px"  style="border: 1px solid #25bc74; text-align: left;" id="post1-product-info">
                <pre>
-                정부는 코로나19 백신 접종이 본격화됨에 따라 다음 달부터 접종 뒤 이상반응을 호소하는 사람들을 위한 '백신 휴가'를 도입하기로 했습니다.
-
-                정부는 오늘(28일) 중앙재난안전대책본부(중대본) 회의를 열어 백신 휴가 활성화 방안을 확정했습니다.
-
-                중대본에 따르면 다음달 1일부터 접종 후 이상반응이 나타난 접종자는 의사 소견서 없이도 신청만으로 휴가를 받을 수 있습니다.
-
-                통상 접종을 받은 후 10∼12시간 이내에 이상반응이 나타나는 점을 고려해 접종 다음 날 하루를 휴가로 부여하고, 이상반응이 있을 때는 추가로 1일을 더 사용할 수 있습니다.
-
-                총 이틀을 사용할 수 있는 셈입니다.
-
-                이는 일반적인 접종 후 이상반응이 2일 이내에 호전되며, 만약 48시간 이상 지속될 경우에는 의료기관에 방문해야 한다는 원칙에 따른 것입니다.
-
-                또 접종 당일에도 접종에 필요한 시간에 대해서는 공가·유급휴가 등을 적용하도록 권고했습니다.
-                출처 : SBS 뉴스 
-
+                ${ requestScope.postDTO.details} 
                </pre>
             </div>
             <div hidden style="border: 1px solid#25bc74;" id="post1-comment-info">
@@ -109,46 +113,134 @@
         }
 
         $(function(){
+        	
             date = new Date();
-            date2 = new Date(2021-03-31);
 
             var date1 = new Date();
-            // var date2 = new Date("2019-09-06 12:03:13");
-            var date2 = new Date("2021-04-04 18:25:50 ");
+            
+            var date2 =  new Date("${requestScope.postDTO.bidEndDate}");
+            
+           
 
-            var test = (date2.getTime() - date1.getTime())/1000;
+            var bidTime = (date2.getTime() - date1.getTime())/1000;
 
-            // $("#bidTime").html(h + ":" + m +":" + s);
 
                 var intervalID = window.setInterval(function(){
 
 
-                    var h= Math.floor((test / ( 60 * 60) ));
-                    var m = Math.floor((test % ( 60 * 60)) /  60);
-                    var s = Math.floor(test %  60);
+                    var h= Math.floor((bidTime / ( 60 * 60) ));
+                    var m = Math.floor((bidTime % ( 60 * 60)) /  60);
+                    var s = Math.floor(bidTime %  60);
                     $("#bidTime").html(h + ":" + m +":" + s);
-                    test--;
+                    bidTime--;
                     setTimeout(function(){
                         clearInterval(intervalID);
                         // area2.innerHTML = "종료!";
                         $("#bidTime").html("경매 종료 ");
-                    },test*1000);
+                    },bidTime*1000);
                 },1000);
+                
+           
             
         })
+        
+        
+        $("#bidBtn").click(function(){
+        	
+        	
+        	
+	        	if(${empty sessionScope.loginUser}){
+	        		alert("로그인후 사용해주세요");
+	        	}else{
+		        	var postNo = "${requestScope.postDTO.no}";
+		        	var userNo ="${sessionScope.loginUser.no}";
+		        	var bidPrice = $("#userbidPrice").val();
+			        	if(bidPrice == ""){
+			        		alert("투찰금액을 입력해주세요")
+			        	}else{
+			        		if(Number(${requestScope.postDTO.minPrice}) < Number(bidPrice)){
+			        			
+			        			$.ajax({
+			    				url: "${ pageContext.servletContext.contextPath }/bid/insert",
+			    				type: "get",
+			    				data: {postNo : postNo,
+			    					   userNo : userNo,
+			    					   bidPrice: bidPrice},
+			    				success: function(data){
+			    					
+			    					
+			    					$("#bid").html(" ");
+			    					$("#bid").html(
+			                        "<label style=\"font-size: 25px;\">투찰금액 :"+ bidPrice +"</label><br>"+
+			                        "<button type=\"button\" id=\"bidcancelBtn\" style=\"width: 200px;\">투찰 취소하기</button>"
+			    					);
+			    					$("#bidPrice").html("");
+			    					for(var i = 0 ; i < data.length ; i++){
+			    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
+			    					}
+
+			    					
+			    				},
+			    				error: function(error){
+			    					console.log(error);
+			    				}
+			    			}); 
+			        			
+			        			
+			        			
+			        		}else{
+			        			alert("최소 금액 보다 높게 투찰해주세요!!!")
+			        		}
+			        		
+			        		
+				        	
+		        		}
+		            	
+		        	
+		        	}
+            })
+            
+             $("#bidcancelBtn").click(function(){
+            	var postNo = "${requestScope.postDTO.no}";
+		        var userNo ="${sessionScope.loginUser.no}";
+		        
+            	 $.ajax({
+	    				url: "${ pageContext.servletContext.contextPath }/bid/cancel",
+	    				type: "get",
+	    				data: {postNo : postNo,
+	    					   userNo : userNo,
+	    					  },
+	    				success: function(data){
+	    					
+	    					
+	    					$("#bid").html(" ");
+	    					$("#bid").html(
+	    					"<label style=\"font-size: 25px;\">희망금액 : </label><input type=text id=\"userbidPrice\">"+
+	                        "<button type=\"button\" id=\"bidBtn\" style=\"width: 150px;\">투찰하기</button>"
+	    					);
+	    					$("#bidPrice").html("");
+	    					for(var i = 0 ; i < data.length ; i++){
+	    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
+	    					}
+
+	    					
+	    				},
+	    				error: function(error){
+	    					console.log(error);
+	    				}
+	    			}); 
+            	 
+            	 
+            	 
+            	 
+             })
+            
+			
         $(function(){
-
-            var size = 10;
-            var price = 1000;
-            for(var i = 0 ; i < size ; i++ ){
-                var bidPrice = "<p> 금액 :" + price + "</p>";
-            $("#bidPrice").append(bidPrice).css("font-size", "15px");
-            }
-        })
-
-
-
-        $(function(){
+        	
+        	
+        	
+        	
             $("#comment-area").keyup(function(){
                
                 var inputLength =$(this).val().length;
@@ -162,6 +254,7 @@
                     $("#counter").parent().css("color","red");
                 }
             })
+            
             
         })
 

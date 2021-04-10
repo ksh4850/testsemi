@@ -8,13 +8,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
 import semitest1.bidnow.common.ConfigLocation;
 import semitest1.bidnow.common.PageInfoDTO;
+import semitest1.bidnow.post.model.dto.BidDTO;
 import semitest1.bidnow.post.model.dto.CategoryDTO;
 import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
@@ -309,13 +309,12 @@ public class PostDAO {
 		
 		return postNo;
 	}
-
+	//게시물 이미지 셀렉
 	public List<ImgDTO> selectPostImgList(Connection con, String no) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String postNo = "";
 		
 		List<ImgDTO> imgList = null;
 		
@@ -352,6 +351,254 @@ public class PostDAO {
 		}
 		
 		return imgList;
+	}
+	
+	//postDtail 셀렉
+	public PostDTO selectPostDtail(Connection con, String postNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PostDTO	post =null;
+		
+		String query = prop.getProperty("selectPostDtail");
+		
+		try {
+			pstmt =con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				post = new PostDTO();
+				post.setSeller(new UserDTO());
+				post.setCategory(new CategoryDTO());
+				
+				post.setNo(rset.getString("POST_NO"));
+				post.getSeller().setNo(rset.getString("SELLER_NO"));
+				post.setPostedDate(rset.getDate("POSTED_DATE"));
+				post.setTitle(rset.getString("POST_TITLE"));
+				post.setDetails(rset.getString("POST_DETAILS"));
+				post.setPostCheck(rset.getString("POST_CHK"));
+				post.setDealingCheck(rset.getString("DEALING_CHK"));
+				post.setMinPrice(rset.getInt("MIN_PRICE"));
+				post.setUnOpenedchk(rset.getString("UNOPENED_CHK"));
+				post.setBidEndDate(rset.getTimestamp("BID_END_DATE"));
+				post.setBidStatus(rset.getString("BID_STATUS"));
+				post.getCategory().setCtgSCode(rset.getString("S_CTG_CODE"));
+				post.getCategory().setCtgSName(rset.getString("S_CTG_NAME"));
+
+
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		
+		return post;
+		
+	}
+	//postDtail에 이미지 셀렉
+	public List<ImgDTO> selectPostDetailImgList(Connection con, String postNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<ImgDTO> imgList = null;
+		
+		ImgDTO img = null;
+		
+		String query = prop.getProperty("selectPostDetailImgList");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			imgList = new ArrayList<>();	
+			
+			while(rset.next()) {
+				img = new ImgDTO();
+				img.setFileNo(rset.getString("FILE_NO"));
+				img.setPostNo(rset.getString("POST_NO"));
+				img.setOrgFileName(rset.getString("ORG_FILE_NAME"));
+				img.setReFileName(rset.getString("RN_FILE_NAME"));
+				img.setThnFileName(rset.getString("THN_FILE_NAME"));
+				
+//				System.out.println("img" + img);
+				imgList.add(img);
+
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
+		
+	}
+
+	public List<BidDTO> selectPostDetailbidList(Connection con, String postNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BidDTO> bidList = null;
+		
+		BidDTO bid = null;
+		
+		String query = prop.getProperty("selectPostDetailBidList");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			bidList = new ArrayList<>();	
+			
+			while(rset.next()) {
+				bid = new BidDTO();	
+				bid.setBidNo(rset.getString("BID_NO"));
+				bid.setPostNo(rset.getString("POST_NO"));
+				bid.setPurchser(new UserDTO());
+				bid.getPurchser().setNo(rset.getString("PURCHASER_NO"));
+				bid.setBidPrice(rset.getInt("BID_PRICE"));
+				bid.setBidDate(rset.getDate("BID_DATE"));
+				bid.setDealingCheck(rset.getString("DEALING_CHK"));
+				
+//				System.out.println(bid);
+				bidList.add(bid);
+	
+
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return bidList;
+	}
+
+	public int insertBid(Connection con,String postNo, String userNo, int bidPrice) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBid");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			pstmt.setString(2, userNo);
+			pstmt.setInt(3, bidPrice);
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+	}
+
+	public List<BidDTO> selectAjaxBidList(Connection con, String postNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		List<BidDTO> bidList = null;
+		
+		BidDTO bid = null;
+		
+		String query = prop.getProperty("selectAjaxBidList");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			
+			rset = pstmt.executeQuery();
+			
+			bidList = new ArrayList<>();	
+			
+			while(rset.next()) {
+				bid = new BidDTO();	
+				bid.setBidNo(rset.getString("BID_NO"));
+				bid.setPostNo(rset.getString("POST_NO"));
+				bid.setPurchser(new UserDTO());
+				bid.getPurchser().setNo(rset.getString("PURCHASER_NO"));
+				bid.setBidPrice(rset.getInt("BID_PRICE"));
+				bid.setBidDate(rset.getDate("BID_DATE"));
+				bid.setDealingCheck(rset.getString("DEALING_CHK"));
+				
+				System.out.println(bid);
+				bidList.add(bid);
+	
+
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return bidList;
+		
+	}
+
+	public int insertBidCancel(Connection con, String postNo, String userNo) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBidCancel");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			pstmt.setString(2, userNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		
+		
+		return result;
+		
+		
 	}
 
 	
