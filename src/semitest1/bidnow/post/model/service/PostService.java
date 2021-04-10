@@ -10,6 +10,7 @@ import java.util.List;
 
 import semitest1.bidnow.common.PageInfoDTO;
 import semitest1.bidnow.post.model.dao.PostDAO;
+import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
 
 public class PostService {
@@ -29,7 +30,20 @@ public class PostService {
 
 		Connection con = getConnection();
 		
+		
+		
 		List<PostDTO> postList = postDAO.selectpostLaryList(con , lcategory , pageInfo);
+		
+		for(int i = 0 ; i < postList.size() ; i ++) {
+			
+			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getNo());
+			
+			postList.get(i).setImg(imglist);
+			
+		}
+		
+//		for()
+//		List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.ge)
 		
 		close(con);
 		
@@ -58,6 +72,18 @@ public class PostService {
 		Connection con = getConnection();
 		
 		List<PostDTO> postList = postDAO.selectpostSmellList(con , scategory , pageInfo);
+		
+		for(int i = 0 ; i < postList.size() ; i ++) {
+			
+			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getNo());
+			
+			postList.get(i).setImg(imglist);
+			
+		}
+		
+//		for(PostDTO tt : postList) {
+//			System.out.println(tt);
+//		}
 		
 		close(con);
 		

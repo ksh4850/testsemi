@@ -25,6 +25,7 @@ public class PostListServlet extends HttpServlet {
 		//카테고리 코드 전송
 		String lcategory = request.getParameter("lcategory");
 		String scategory = request.getParameter("scategory");
+		String thumbnailLocation = request.getServletContext().getRealPath("/") + "resources/thumbnail-image";
 	
 //		System.out.println("lcategory : " + lcategory);
 //		System.out.println("scategory : " + scategory);
@@ -94,6 +95,8 @@ public class PostListServlet extends HttpServlet {
 			path="/WEB-INF/views/post/postList.jsp";
 			request.setAttribute("postList", postList);
 			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("thumbnailLocation", thumbnailLocation);
+			
 					
 		}else {
 			path="/WEB-INF/views/post/postList.jsp";

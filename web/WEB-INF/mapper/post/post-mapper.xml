@@ -238,5 +238,16 @@
 		  
 	
 	</entry>
+	
+	<entry key="selectPostImgList">
+		SELECT
+		    FILE_NO
+		  , POST_NO
+		  , ORG_FILE_NAME
+		  , RN_FILE_NAME
+		  , THN_FILE_NAME
+		  FROM TBL_POST_PIC
+		  WHERE POST_NO = ?
+	</entry>
 
 </properties>

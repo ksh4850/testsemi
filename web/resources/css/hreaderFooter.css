@@ -119,6 +119,18 @@
     /* border: 1px solid black; */
 }
 
+#logoutBtn{
+    position: relative;
+    top: 35px;
+    left: 22px;
+    width: 90px;
+    height: 26px;
+    border: none;
+    background-color: transparent;
+    float: left;
+    /* border: 1px solid black; */
+}
+
 #regstBtn{
     position: relative;
     top: 35px;
@@ -130,6 +142,19 @@
     float: left;
     /* border: 1px solid black; */
 }
+
+#myPageBtn{
+    position: relative;
+    top: 35px;
+    left: 43px;
+    width: 90px;
+    height: 26px;
+    border: none;
+    background-color: transparent;
+    float: left;
+    /* border: 1px solid black; */
+}
+
 
 #ctgimg{
     width: 130px;

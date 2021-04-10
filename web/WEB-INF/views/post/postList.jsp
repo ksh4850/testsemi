@@ -77,7 +77,7 @@
         <div class="contents1">
             <div class="post5-s-category" id ="S0028">티켓/쿠폰/상품권</div>
             <div class="post5-s-category" id ="S0029">핸드메이드</div>
-            <div class="post5-s-category" id ="S0030">${sessionScope.loginUser.no}</div>
+            <div class="post5-s-category" id ="S0030">${ requestScope.thumbnailLocation}/${ postList[0].img[0].thnFileName}</div>
         
         </div>
 
@@ -98,8 +98,9 @@
     	
 		<c:forEach var="post" items="${requestScope.postList }">
 		<div class="post5-product">
-            <img src="/semitest1/resources/image/book.jpg"  width="175px" height="175px">
-            <div class="post5-title">${ post.title}</div>
+            <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ post.img[0].thnFileName}"  width="175px" height="175px" > 
+             <div class="post5-title">${ post.title}</div> 
+
         </div> 
 	</c:forEach>
     </section>

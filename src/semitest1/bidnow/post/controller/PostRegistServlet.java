@@ -65,8 +65,10 @@ public class PostRegistServlet extends HttpServlet {
 
 		
 		String imgLocation = request.getServletContext().getInitParameter("file-location") + "/postImg";
-		String thumbnailLocation = request.getServletContext().getInitParameter("file-location") + "/postThumbnail";
+		String thumbnailLocation = request.getServletContext().getRealPath("/") + "resources/thumbnail-image";
 		int fileSize = Integer.valueOf(request.getServletContext().getInitParameter("max-file-size"));
+		
+		System.out.println(thumbnailLocation);
 	
 		
 		File directory = new File(imgLocation);
@@ -141,7 +143,7 @@ public class PostRegistServlet extends HttpServlet {
 						File saveFile = new File(imgLocation + "/" + reFileNam);
 						String thnPath = thumbnaildirectory + "/" + thnFileName;
 						Thumbnails.of(saveFile)
-								.size(100,80)
+								.size(300,300)
 								.toFile(thnPath);
 						System.out.println("썸내일 변환성공 ");
 						

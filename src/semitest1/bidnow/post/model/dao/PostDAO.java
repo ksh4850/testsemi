@@ -16,6 +16,7 @@ import java.util.Properties;
 import semitest1.bidnow.common.ConfigLocation;
 import semitest1.bidnow.common.PageInfoDTO;
 import semitest1.bidnow.post.model.dto.CategoryDTO;
+import semitest1.bidnow.post.model.dto.ImgDTO;
 import semitest1.bidnow.post.model.dto.PostDTO;
 import semitest1.bidnow.user.model.dto.UserDTO;
 
@@ -307,6 +308,50 @@ public class PostDAO {
 		
 		
 		return postNo;
+	}
+
+	public List<ImgDTO> selectPostImgList(Connection con, String no) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String postNo = "";
+		
+		List<ImgDTO> imgList = null;
+		
+		ImgDTO img = null;
+		
+		String query = prop.getProperty("selectPostImgList");
+		
+		try {
+			pstmt= con.prepareStatement(query);
+			pstmt.setString(1, no);
+			
+			rset = pstmt.executeQuery();
+			
+			imgList = new ArrayList<>();	
+			
+			while(rset.next()) {
+				img = new ImgDTO();
+				img.setFileNo(rset.getString("FILE_NO"));
+				img.setPostNo(rset.getString("POST_NO"));
+				img.setOrgFileName(rset.getString("ORG_FILE_NAME"));
+				img.setReFileName(rset.getString("RN_FILE_NAME"));
+				img.setThnFileName(rset.getString("THN_FILE_NAME"));
+				
+				
+				imgList.add(img);
+
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return imgList;
 	}
 
 	

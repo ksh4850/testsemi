@@ -262,6 +262,8 @@
     margin-top: 20px;
     margin-left: 25px;
     display: inline-block;
+    border: 1px solid #25bc74;
+    border-radius: 10px;
 }
 
 .post5-title{
@@ -274,7 +276,7 @@
 .post5-product>img{
     width: 200px;
     height: 200px;
-    border-radius: 15px;
+    border-radius: 10px;
 }
 
  #createPostBtn{
