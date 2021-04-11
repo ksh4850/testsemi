@@ -83,12 +83,12 @@
 
     </nav>
     <section id="post5-list">
-    	<c:if test="${empty sessionScope.loginUser}">
+    	<%-- <c:if test="${empty sessionScope.loginUser}">
 	    	<div style="float: right;">
 	            <input type="button" id="createPostBtn"  value="게시물 등록하기" hidden>
 	        </div> 
         </c:if>
-        <br clear="both">
+        <br clear="both"> --%>
         <c:if test="${!empty sessionScope.loginUser}">
 	    	<div style="float: right;">
 	            <input type="button" id="createPostBtn"  value="게시물 등록하기" >

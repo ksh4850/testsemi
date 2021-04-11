@@ -274,6 +274,7 @@
  		    , BID_PRICE
  		    , BID_DATE
 		 	, DEALING_CHK
+		 	, BID_STATUS
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
 		    AND BID_STATUS = 'N'
@@ -289,6 +290,7 @@
 		, BID_PRICE
 		, BID_DATE
 		, DEALING_CHK
+		, BID_STATUS
 		)
 		VALUES
 		(
@@ -297,6 +299,7 @@
 		, ? 
 		, ?
 		, SYSDATE
+		, DEFAULT
 		, DEFAULT
 		)
 	</entry>
@@ -309,6 +312,7 @@
  		    , BID_PRICE
  		    , BID_DATE
 		 	, DEALING_CHK
+		 	, BID_STATUS
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
 			AND BID_STATUS = 'N'

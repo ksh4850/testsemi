@@ -83,7 +83,7 @@
 	     $("#postRegistcancel").click (function(){
 	 		
 	 		
-	 		location.href="${pageContext.servletContext.contextPath}/post/postview2?scategory=${requestScope.backCode1 }&lcategory=${requestScope.backCode2 }";	
+	 		location.href="${pageContext.servletContext.contextPath}/post/list?scategory=${requestScope.backCode1 }&lcategory=${requestScope.backCode2 }";	
 		})
 	
 	

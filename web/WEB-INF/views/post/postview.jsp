@@ -46,15 +46,23 @@
                 </div>
                 <div class="post1-info"> 
                 	<c:if test="${empty requestScope.userBidInfo }">
-	                    <div id="bid">
+	                    <div id="bid1">
 	                        <label style="font-size: 25px;">희망금액 : </label><input type=text id="userbidPrice">
 	                        <button type="button" id="bidBtn" style="width: 150px;">투찰하기</button>
 	                    </div>
+	                    <div id="bid2" style="display:none;">
+	                        <label style="font-size: 25px;">투찰 금액 : ${ requestScope.userBidInfo.bidPrice } </label><br>
+	                        <button type="button" id="bidcancelBtn1" style="width: 200px;">취소하기</button>
+	                    </div>
                     </c:if>
                     <c:if test="${!empty requestScope.userBidInfo }">
-	                    <div id="bid">
+                    	<div id="bid1" style="display:none;">
+	                        <label style="font-size: 25px;">희망금액 : </label><input type=text id="userbidPrice">
+	                        <button type="button" id="bidBtn" style="width: 150px;">투찰하기</button>
+	                    </div>
+	                    <div id="bid2">
 	                        <label style="font-size: 25px;">투찰 금액 : ${ requestScope.userBidInfo.bidPrice } </label><br>
-	                        <button type="button" id="bidcancelBtn" style="width: 200px;">취소하기</button>
+	                        <button type="button" id="bidcancelBtn1" style="width: 200px;">취소하기</button>
 	                    </div>
                     </c:if>
                  
@@ -167,13 +175,9 @@
 			    					   userNo : userNo,
 			    					   bidPrice: bidPrice},
 			    				success: function(data){
-			    					
-			    					
-			    					$("#bid").html(" ");
-			    					$("#bid").html(
-			                        "<label style=\"font-size: 25px;\">투찰금액 :"+ bidPrice +"</label><br>"+
-			                        "<button type=\"button\" id=\"bidcancelBtn\" style=\"width: 200px;\">투찰 취소하기</button>"
-			    					);
+			    				
+			    					$("#bid1").css("display","none");
+			    					$("#bid2").css("display","block");
 			    					$("#bidPrice").html("");
 			    					for(var i = 0 ; i < data.length ; i++){
 			    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
@@ -200,7 +204,7 @@
 		        	}
             })
             
-             $("#bidcancelBtn").click(function(){
+             $("#bidcancelBtn1").click(function(){
             	var postNo = "${requestScope.postDTO.no}";
 		        var userNo ="${sessionScope.loginUser.no}";
 		        
@@ -212,12 +216,8 @@
 	    					  },
 	    				success: function(data){
 	    					
-	    					
-	    					$("#bid").html(" ");
-	    					$("#bid").html(
-	    					"<label style=\"font-size: 25px;\">희망금액 : </label><input type=text id=\"userbidPrice\">"+
-	                        "<button type=\"button\" id=\"bidBtn\" style=\"width: 150px;\">투찰하기</button>"
-	    					);
+	    					$("#bid1").css("display","block");
+	    					$("#bid2").css("display","none");
 	    					$("#bidPrice").html("");
 	    					for(var i = 0 ; i < data.length ; i++){
 	    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
