@@ -126,7 +126,7 @@ public class PostService {
 
 			imgResult = postDAO.inserPostImg(postDTO , con ,postNo);
 			
-			if(imgResult > 0) {
+			if(imgResult == postDTO.getImg().size()) {
 				commit(con);
 			}else{
 				rollback(con);

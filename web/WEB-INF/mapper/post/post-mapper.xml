@@ -277,7 +277,7 @@
 		 	, BID_STATUS
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
-		    AND BID_STATUS = 'N'
+		    AND BID_STATUS = 'Y'
 	</entry>
 	<!-- 투찰 인설트 -->
 	<entry key="insertBid">
@@ -315,14 +315,14 @@
 		 	, BID_STATUS
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
-			AND BID_STATUS = 'N'
+			AND BID_STATUS = 'Y'
 	</entry>
 	
 	<!-- 투찰 취소 -->
 	<entry key="insertBidCancel">
 		UPDATE	/* semitest1.bidnow.post.model.dao.PostDAO#insertBidCancel*/
 		       TBL_BID
-		   SET BID_STATUS = 'Y'
+		   SET BID_STATUS = 'N'
 		 WHERE POST_NO = ? 
  		  AND PURCHASER_NO = ?
 	

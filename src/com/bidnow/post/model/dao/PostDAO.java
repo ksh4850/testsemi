@@ -238,7 +238,7 @@ public class PostDAO {
 			pstmt.setString(4, postDTO.getImg().get(i).getThnFileName());
 			
 			
-			insertPostResult = pstmt.executeUpdate();
+			insertPostResult += pstmt.executeUpdate();
 			
 			}
 		} catch (SQLException e) {

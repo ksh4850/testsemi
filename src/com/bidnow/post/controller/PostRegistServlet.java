@@ -64,7 +64,7 @@ public class PostRegistServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		
-		String imgLocation = request.getServletContext().getInitParameter("file-location") + "/postImg";
+		String imgLocation = request.getServletContext().getRealPath("/") + "resources/user-image";
 		String thumbnailLocation = request.getServletContext().getRealPath("/") + "resources/thumbnail-image";
 		int fileSize = Integer.valueOf(request.getServletContext().getInitParameter("max-file-size"));
 		
@@ -128,7 +128,7 @@ public class PostRegistServlet extends HttpServlet {
 						String ext = originFiledName.substring(dot);	//file 자료형 만 잘라냄  substring index번호 부터 잘라냄
 						
 						String reFileNam = UUID.randomUUID().toString().replace("-", "") + ext;
-						String thnFileName = UUID.randomUUID().toString().replace("-", "") + ext;
+//						String thnFileName = UUID.randomUUID().toString().replace("-", "") + ext;
 						
 						System.out.println("saveFileName" + reFileNam);
 						//파일의 명이 서로 안겹치게 하기위해서 UUID로 랜덤문자 생성 replace = 문자를 변경해줌 "-" 를 ""(공백)
@@ -141,6 +141,7 @@ public class PostRegistServlet extends HttpServlet {
 						
 						
 						File saveFile = new File(imgLocation + "/" + reFileNam);
+						String thnFileName =  "/thumnail_" + reFileNam;
 						String thnPath = thumbnaildirectory + "/" + thnFileName;
 						Thumbnails.of(saveFile)
 								.size(300,300)
@@ -164,7 +165,7 @@ public class PostRegistServlet extends HttpServlet {
 						
 						postInfo.put( file.getFieldName(),  new String(file.getString().getBytes("ISO-8859-1"),"UTF-8"));
 						
-						System.out.println(file.getFieldName() + "=" + new String(file.getString().getBytes("ISO-8859-1"),"UTF-8") );
+//						System.out.println(file.getFieldName() + "=" + new String(file.getString().getBytes("ISO-8859-1"),"UTF-8") );
 					}
 					
 					
@@ -189,9 +190,9 @@ public class PostRegistServlet extends HttpServlet {
 				}
 				
 				if(cnt==imgList.size()) {
-					System.out.println("업로드성공");
+					System.out.println("업로드실패 삭제 성공");
 				}else {
-					System.out.println("업로드실패");
+					System.out.println("업로드실패 삭제 실패 ");
 				}
 				
 				

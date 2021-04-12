@@ -30,9 +30,27 @@ public class BidcancelServlet extends HttpServlet {
 	
 		List<BidDTO> bidList = null;
 		int result = new PostService().insertBidCancel(postNo,userNo);
-//		
+		
+
 		if(result > 0) {
 			bidList = new PostService().selectAjaxBidList(postNo);
+			
+//			System.out.println("켄슬 비드 디비 :" + bidList);
+			String gson = new Gson().toJson(bidList);
+			
+				
+				
+		//	System.out.println("gson 변환 : "+gson);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.print(gson);
+			
+		
+			
+			out.flush();
+			out.close();
 		}else {
 			String path = "/WEB-INF/views/common/failed.jsp";
 			request.setAttribute("message", "투찰취소 실패!");
@@ -40,22 +58,7 @@ public class BidcancelServlet extends HttpServlet {
 
 		}
 		
-			System.out.println("켄슬 비드 디비 :" + bidList);
-			String gson = new Gson().toJson(bidList);
-			
-			
-			
-		System.out.println("gson 변환 : "+gson);
-		
-		response.setContentType("application/json; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		
-		out.print(gson);
-		
 
-		
-		out.flush();
-		out.close();
 	}
 
 }

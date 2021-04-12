@@ -36,15 +36,9 @@ public class bidSevlet extends HttpServlet {
 //		
 		if(result > 0) {
 			bidList = new PostService().selectAjaxBidList(postNo);
-		}else {
-			String path = "/WEB-INF/views/common/failed.jsp";
-			request.setAttribute("message", "회원 가입 실패!");
-			request.getRequestDispatcher(path).forward(request, response);
-
-		}
-		
-			System.out.println(bidList);
-			String gson = new Gson().toJson(bidList);
+			
+//		System.out.println(bidList);
+		String gson = new Gson().toJson(bidList);
 
 			
 			
@@ -59,6 +53,14 @@ public class bidSevlet extends HttpServlet {
 		
 		out.flush();
 		out.close();
+		}else {
+			String path = "/WEB-INF/views/common/failed.jsp";
+			request.setAttribute("message", "회원 가입 실패!");
+			request.getRequestDispatcher(path).forward(request, response);
+
+		}
+		
+			
 		
 		
 	}

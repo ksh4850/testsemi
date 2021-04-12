@@ -176,14 +176,16 @@
 			    					   bidPrice: bidPrice},
 			    				success: function(data){
 			    				
-			    					$("#bid1").css("display","none");
-			    					$("#bid2").css("display","block");
-			    					$("#bidPrice").html("");
-			    					for(var i = 0 ; i < data.length ; i++){
-			    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
-			    					}
-
 			    					
+			    					if(data != "" ){
+				    					$("#bid1").css("display","none");
+				    					$("#bid2").css("display","block");
+				    					$("#bidPrice").html("");
+				    					for(var i = 0 ; i < data.length ; i++){
+				    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
+				    					}
+
+			    					}
 			    				},
 			    				error: function(error){
 			    					console.log(error);
@@ -216,14 +218,15 @@
 	    					  },
 	    				success: function(data){
 	    					
-	    					$("#bid1").css("display","block");
-	    					$("#bid2").css("display","none");
-	    					$("#bidPrice").html("");
-	    					for(var i = 0 ; i < data.length ; i++){
-	    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
-	    					}
-
 	    					
+		    					$("#bid1").css("display","block");
+		    					$("#bid2").css("display","none");
+		    					$("#bidPrice").html("");
+		    					for(var i = 0 ; i < data.length ; i++){
+		    						$("#bidPrice").append("투찰금액 : "+data[i].bidPrice+ "<br>"); 
+		    					
+
+	    					}
 	    				},
 	    				error: function(error){
 	    					console.log(error);
