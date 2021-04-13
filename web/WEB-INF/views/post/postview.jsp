@@ -13,12 +13,17 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/semitest1/resources/css/auction.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<style type="text/css">
+	
+    
+</style>
 </head>
 <body>
 
-	<jsp:include page="../common/header.jsp"></jsp:include>
+	<jsp:include page="../common/header.jsp"></jsp:include> 
 
- 	<div class="post">
+ 	 <div class="post">
         <h1 > ${ requestScope.postDTO.title}</h1>
         <hr>
         <!-- width="350px" height="350px" style="margin-top: 25px;  -->
@@ -45,7 +50,7 @@
                     최소 입찰 금액 : ${requestScope.postDTO.minPrice}
                 </div>
                 <div class="post1-info"> 
-                	<c:if test="${empty requestScope.userBidInfo }">
+                	<c:if test="${requestScope.postDTO.seller.no ne sessionScope.loginUser.no and empty requestScope.userBidInfo }">
 	                    <div id="bid1">
 	                        <label style="font-size: 25px;">희망금액 : </label><input type=text id="userbidPrice">
 	                        <button type="button" id="bidBtn" style="width: 150px;">투찰하기</button>
@@ -55,7 +60,7 @@
 	                        <button type="button" id="bidcancelBtn1" style="width: 200px;">취소하기</button>
 	                    </div>
                     </c:if>
-                    <c:if test="${!empty requestScope.userBidInfo }">
+                    <c:if test="${requestScope.postDTO.seller.no ne sessionScope.loginUser.no and !empty requestScope.userBidInfo }">
                     	<div id="bid1" style="display:none;">
 	                        <label style="font-size: 25px;">희망금액 : </label><input type=text id="userbidPrice">
 	                        <button type="button" id="bidBtn" style="width: 150px;">투찰하기</button>
@@ -65,12 +70,16 @@
 	                        <button type="button" id="bidcancelBtn1" style="width: 200px;">취소하기</button>
 	                    </div>
                     </c:if>
-                 
+                    <c:if test="${ requestScope.postDTO.seller.no eq sessionScope.loginUser.no }">
+                    	<div class="post1-info"> 
+                			<button id="postDetailUpdataBtn">게시물 수정하기</button>
+                		</div>
+                    </c:if>
                 </div>
                 
 
             </div>
-        </div>
+        </div> 
 
         <br clear="both">
         <div id="post1-product-comment">
@@ -84,17 +93,116 @@
                </pre>
             </div>
             <div hidden style="border: 1px solid#25bc74;" id="post1-comment-info">
-                <form action="#">
-                    <textarea  cols="80" rows="3" id="comment-area" style="margin-top:30px;"></textarea>
-                    <div>
-                        <table>
-                            <td style="padding-left: 680px;"><div id="counter" >0/100 </div></td>
-                            <td><input type="submit" value="댓글작성"></td>
-                        </table>
-                    </div>
-                </form>
-                <!-- <div class="post1-comment" >작성자 : 내용</div> -->
-                <!-- <div id="comment1" width="350px" style="margin-top: 10px; border-bottom: 1px solid black; font-size: 25px; text-align: left; padding-left: 200px;" >작성자 : 내용</div> -->
+          
+                    <c:if test="${ requestScope.postDTO.seller.no ne sessionScope.loginUser.no }">
+	                   	<textarea align="center"  cols="80" rows="3" id="comment-area" style="margin-top:30px;"></textarea>
+	                    <div>
+	                    <table align="center">
+	                            <tr>
+	                            <td ><div >비공개 여부 : </div></td>
+	                            <td><input type="checkbox" id="commentSecret" value="Y"></td>
+	                            <td style="padding-left: 350px;"><div id="counter" >0/100 </div></td>
+	                            <td><input type="button" id="commentRegistBtn" value="댓글작성"></td> 
+	                            </tr>
+	                   </table>
+	                   </div>
+	               	</c:if>
+	               		<br>
+	               		
+	                    <table align="center" >
+	                        <tr>
+	                            <th width="100px">답변상태 </th>
+	                            <th width="700px" align="center" style="padding-left: 350px;"> 내용 </th>
+	                            <th width="100px"> 작성일 </th>
+	                         </tr>
+	                    </table>
+					
+					
+						<div id="kkk">
+                       <c:forEach var="inquiry" items="${requestScope.postDTO.inquiryList}">
+                       
+                       <c:if test="${ requestScope.postDTO.seller.no ne sessionScope.loginUser.no }">
+                       
+                       		<c:if test="${inquiry.secretStatus eq 'Y' and sessionScope.loginUser.no ne inquiry.purchaser.no  }">
+                       			 <div class="post1-comment" >
+		                            <div  id="q1">
+		                            <c:if test="${inquiry.responseStatue eq 'N' }">미답변</c:if>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">답변 완료</c:if>
+		                            </div>
+		                            <div  id="q2" > 비밀글입니다.  </div>
+		                            <div id="q3">${inquiry.inquiryDate}</div>
+                       			</div>
+                       		</c:if>
+                       		
+                       		
+                       		
+                       		<c:if test="${inquiry.secretStatus eq 'Y' and sessionScope.loginUser.no eq inquiry.purchaser.no }">
+		                        <div class="post1-comment" >
+		                            <div  id="q1">
+		                            <c:if test="${inquiry.responseStatue eq 'N' }">미답변</c:if>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">답변 완료</c:if>
+		                            </div>
+		                            <div  id="q2" > ${inquiry.purchaser.id} : ${inquiry.inquiryDetails}</div>
+		                            <div id="q3">${inquiry.inquiryDate}</div>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">
+		                            <div class="post1-comment-resonse" >
+		                                <div id="w2" >ㄴ  : ${inquiry.response}</div>
+		                                <div id="w3">${inquiry.responseDate}</div>
+		                            </div> 
+		                            </c:if>
+		                        </div> 
+		                    </c:if>
+                       		
+                       		
+                       		<c:if test="${inquiry.secretStatus eq 'N' }">
+		                        <div class="post1-comment" >
+		                            <div  id="q1">
+		                            <c:if test="${inquiry.responseStatue eq 'N' }">미답변</c:if>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">답변 완료</c:if>
+		                            </div>
+		                            <div  id="q2" >${inquiry.purchaser.id} : ${inquiry.inquiryDetails}</div>
+		                            <div id="q3">${inquiry.inquiryDate}</div>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">
+		                            <div class="post1-comment-resonse" >
+		                                <div id="w2" >ㄴ  : ${inquiry.response}</div>
+		                                <div id="w3">${inquiry.responseDate}</div>
+		                            </div> 
+		                            </c:if>
+		                        </div> 
+		                    </c:if>
+		                    
+		                    </c:if>
+		                    
+		                   <c:if test="${ requestScope.postDTO.seller.no eq sessionScope.loginUser.no }">
+								 <div class="post1-comment" >
+		                            <div  id="q1">
+		                            <c:if test="${inquiry.responseStatue eq 'N' }">미답변</c:if>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">답변 완료</c:if>
+		                            </div>
+		                            <div  id="q2" >${inquiry.purchaser.id} : ${inquiry.inquiryDetails}</div>
+		                            <div id="q3">${inquiry.inquiryDate}</div>
+		                            <c:if test="${inquiry.responseStatue eq 'Y' }">
+		                            <div class="post1-comment-resonse" >
+		                                <div id="w2" >ㄴ  : ${inquiry.response}</div>
+		                                <div id="w3">${inquiry.responseDate}</div>
+		                            </div> 
+		                            </c:if>
+		                            <c:if test="${inquiry.responseStatue eq 'N' }">
+		                            <div class="post1-comment-resonse1" >
+                                		<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div>
+                           			 </div> 
+		                            </c:if>
+		                        </div> 
+					
+						</c:if>
+		                    
+					</c:forEach>
+					</div>
+					
+				
+                        
+                        
+                        <br clear="both">
             </div>
         </div>
         
@@ -260,25 +368,247 @@
             
             
         })
+        
+        $(".post1-comment").on("click",function(){
+                      
+                    if($(this).children(".post1-comment-resonse").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse").css("display","inline");
+                      }else{
+                            $(this).children(".post1-comment-resonse").css("display","none");
+                      }
 
-        $(function(){
-            var user = ['사람1','사람2','사람3','사람4','사람5'];
-            var text1 = ['문의 합니다.','물어볼께요','하이요','그냥요','바보'];
-            var text2 = ['물건쩌러',null,'완전',null,'쩌러'];
-            var comment = "<div class=\"post1-comment\" >"+ user[i] + " : " + text1[i] +"</div>";
-            var comment1 = "<div class=\"post1-comment\" > ㄴ " + text2 +"</div>";
-            
-            for(var i = 0 ; i < 5 ; i++){
-                $("#post1-comment-info").append("<div class=\"post1-comment\" >"+ user[i] + " : " + text1[i] +"</div>").css("color","black");
-                if(text2[i] != null){
-                    $("#post1-comment-info").append("<div class=\"post1-comment\" > ㄴ " + text2[i] +"</div>").css("color","black");
-                }
-            }
+                       if($(this).children(".post1-comment-resonse1").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse1").css("display","inline");
+                      } 
 
-                console.log(text2);
+      	})
 
-        })
+       
+      
+    
+      
+      $("#commentRegistBtn").click(function(){
+    	  var postNo = "${requestScope.postDTO.no}";
+    	  var postUserNo ="${ requestScope.postDTO.seller.no}"
+	      var loginUserNo ="${sessionScope.loginUser.no}";
+	      var Detail = $("#comment-area").val();
+	      var Secret = $("#commentSecret:checked").val();
+	        
+      	 $.ajax({
+  				url: "${ pageContext.servletContext.contextPath }/post/insertComment",
+  				type: "get",
+  				data: {postNo : postNo,
+  					   userNo : loginUserNo,
+  					   Detail : Detail, 
+  					   Secret : Secret},
+  			  success: function(data){
+  				  
+  				  
+  				$(document).on("click",".post1-comment",function(e){
+                    
+                    if($(this).children(".post1-comment-resonse").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse").css("display","inline");
+                      }else{
+                        $(this).children(".post1-comment-resonse").css("display","none");
+                      }
 
+                       if($(this).children(".post1-comment-resonse1").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse1").css("display","inline");
+                      } 
+
+      			})
+      			
+      			
+		    	$("#kkk").html("");			
+      			for(var i = 0 ; i <data.length  ; i++){
+			  			
+			  			var responseStatue = "";
+			  			
+			  			if(data[i].responseStatue == 'Y'){
+			  				responseStatue = "답변 완료"
+			  			}else{
+			  				responseStatue = "답변 미완료"
+			  			}
+			  			
+			  		//로그인 유저번호 , 포스트 만든 유저번호 가 같으면	
+			  		/* if(loginUserNo == postUserNo ){
+			  			$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +
+			  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
+			  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
+			  			//답변인경우
+			  			if(data[i].responseStatue == "Y"){
+				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+                         '<div id="w3">' + data[i].responseDate + '</div></div>');
+				  		//미답변인경우
+			  			}else{
+				  			$("#kkk").append('<div class="post1-comment-resonse1" >'+
+                 		  '<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div></div></div>');
+			  			}
+			  			
+			  		}else{ */
+			  			//포스 주인이 아니고 비밀 상태이고 
+			  			if( data[i].secretStatus == 'Y'){
+			  				console.log(loginUserNo);
+			  				console.log(data[i].purchaser.no);
+				  				//로그인한 회원이 글쓴이가 아니면!
+				  				if(loginUserNo != data[i].purchaser.no){
+				  					$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue + '</div><div  id="q2" > 비밀글입니다.  </div><div id="q3">' + data[i].inquiryDate + '</div></div>');
+				  				
+				  				//로그인한 회원이 글쓴이가 이면!
+				  				}else{
+				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
+		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
+		  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>');
+		  				  			//답변인경우
+		  				  			if(data[i].responseStatue == "Y"){
+			  				  			$("#kkk").append('<div class="post1-comment-resonse" ><div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+			                             '<div id="w3">' + data[i].responseDate + '</div></div></div>');
+				  					}else{
+			  							$("#kkk").append('</div>');
+			  						}
+			  				   }		
+	  				  			
+			  			}else{
+			  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
+  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
+  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
+  				  			//답변인경우
+  				  				if(data[i].responseStatue == "Y"){
+		  				  			$("#kkk").append('<div class="post1-comment-resonse" ><div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+		                             '<div id="w3">' + data[i].responseDate + '</div></div></div>');
+		  						}else{
+		  							$("#kkk").append('</div>');
+		  						}
+			  				
+			  				
+			  			}
+			  			
+			  			
+			  		}
+
+			  	/* 	} */
+
+				},
+  				error: function(error){
+  					console.log(error);
+  				}
+  			}); 
+      })
+		
+      
+/*       $(document).on("click","#reponseRegistBtn",function(e){
+      				/* location.href="${ pageContext.servletContext.contextPath }/post/updateCommentResponse"; 
+      				
+      		var postNo = "${requestScope.postDTO.no}";
+      		var postUserNo ="${ requestScope.postDTO.seller.no}"
+      		var loginUserNo ="${sessionScope.loginUser.no}";
+      		var responseDetail = $(this).find("#responseDetail").val();
+      		var purchaserNo = $(this).find("#responseDetail").attr("name");
+      		
+      		
+      		$.ajax({
+  				url: "${ pageContext.servletContext.contextPath }/post/updateCommentResponse",
+  				type: "get",
+  				data: {postNo : postNo,
+  					   userNo : loginUserNo,
+  					 responseDetail : responseDetail,
+  						purchaserNo : purchaserNo},
+  			  success: function(data){
+  				  
+  				  
+  				$(document).on("click",".post1-comment",function(e){
+                    
+                    if($(this).children(".post1-comment-resonse").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse").css("display","inline");
+                      }else{
+                            $(this).children(".post1-comment-resonse").css("display","none");
+                      }
+
+                       if($(this).children(".post1-comment-resonse1").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse1").css("display","inline");
+                      } 
+
+      			})
+      			
+      			
+		    				
+  				  		$("#kkk").html("");
+  				  		
+  				  		for(var i = 0 ; i <data.length ; i++){
+  				  			
+  				  			var responseStatue = "";
+  				  			
+  				  			if(data[i].responseStatue == 'Y'){
+  				  				responseStatue = "답변 완료"
+  				  			}else{
+  				  				responseStatue = "답변 미완료"
+  				  			}
+  				  			
+  				  		//로그인 유저번호 , 포스트 만든 유저번호 가 같으면	
+  				  		if(loginUserNo == postUserNo ){
+  				  			$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
+  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
+  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
+  				  			//답변인경우
+  				  			if(data[i].responseStatue == "Y"){
+	  				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+	                             '<div id="w3">' + data[i].responseDate + '</div></div>');
+	  				  		//미답변인경우
+  				  			}else{
+	  				  			$("#kkk").append('<div class="post1-comment-resonse1" >'+
+	                     		  '<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div></div></div>');
+  				  			}
+  				  			
+  				  		}else{
+  				  			//포스 주인이 아니고 비밀 상태이고 
+  				  			if( data[i].secretStatus == 'Y'){
+  				  				
+  				  			
+	  				  				//로그인한 회원이 글쓴이가 아니면!
+	  				  				if(loginUserNo != data[i].purchaser.no){
+	  				  					$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue + '</div><div  id="q2" > 비밀글입니다.  </div><div id="q3">' + data[i].inquiryDate + '</div></div>');
+	  				  				
+	  				  				//로그인한 회원이 글쓴이가 이면!
+	  				  				}else{
+	  				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
+	  		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
+	  		  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
+	  		  				  			//답변인경우
+	  		  				  			if(data[i].responseStatue == "Y"){
+	  			  				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+	  			                             '<div id="w3">' + data[i].responseDate + '</div></div>');
+	  				  					}else{
+				  							$("#kkk").append('</div>');
+				  						}
+  				  				}		
+  		  				  			
+  				  			}else{
+  				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
+		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
+		  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
+		  				  			//답변인경우
+		  				  			if(data[i].responseStatue == "Y"){
+			  				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
+			                             '<div id="w3">' + data[i].responseDate + '</div></div>');
+				  					}else{
+			  							$("#kkk").append('</div>');
+			  						}
+  				  				
+  				  				
+  				  			}
+  				  			
+  				  			
+  				  		}
+
+  				  		}
+	
+	    				},
+  				error: function(error){
+  					console.log(error);
+  				}
+  			}); 
+      		
+     }) */
 
 
     </script> 

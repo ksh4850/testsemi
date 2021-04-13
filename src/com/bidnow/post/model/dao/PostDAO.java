@@ -17,6 +17,7 @@ import com.bidnow.common.PageInfoDTO;
 import com.bidnow.post.model.dto.BidDTO;
 import com.bidnow.post.model.dto.CategoryDTO;
 import com.bidnow.post.model.dto.ImgDTO;
+import com.bidnow.post.model.dto.InquiryDTO;
 import com.bidnow.post.model.dto.PostDTO;
 import com.bidnow.user.model.dto.UserDTO;
 
@@ -700,6 +701,127 @@ public class PostDAO {
 		return post;
 		
 		
+	}
+
+	public List<InquiryDTO> selectPostInquiryList(Connection con, String postNo) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PostDTO	post =null;
+		List<InquiryDTO> inquiryList = null;
+		String query = prop.getProperty("selectPostInquiryList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			rset = pstmt.executeQuery();
+			inquiryList = new ArrayList<>();
+			
+			while(rset.next()) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				inquiryDTO.setPurchaser(new UserDTO());
+				
+				inquiryDTO.setInquiryNo(rset.getString("INQUIRY_NO"));
+				inquiryDTO.setPostNo(rset.getString("POST_NO"));
+				inquiryDTO.getPurchaser().setNo(rset.getString("PURCHASER_NO"));
+				inquiryDTO.setInquiryDetails(rset.getString("INQUIRY_DETAILS"));
+				inquiryDTO.setInquiryDate(rset.getDate("INQUIRY_DATE"));
+				inquiryDTO.setResponse(rset.getString("INQUIRY_RESPONSE"));
+				inquiryDTO.setResponseDate(rset.getDate("INQUIRY_RESPONSE_DATE"));
+				inquiryDTO.setResponseStatue(rset.getString("INQUIRY_RESPONSE_STATUS"));
+				inquiryDTO.setSecretStatus(rset.getString("INQUIRY_SECRET_STATUS"));
+				inquiryDTO.getPurchaser().setId(rset.getString("ID").substring(0,3)+"***");
+
+				inquiryList.add(inquiryDTO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return inquiryList;
+	}
+
+	
+
+	public int insertComment(Connection con, InquiryDTO inquiryDTO) {
+
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String SecretStatus = "";
+		
+		String query = prop.getProperty("insertComment");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, inquiryDTO.getPostNo());
+			pstmt.setString(2, inquiryDTO.getPurchaser().getNo());
+			pstmt.setString(3, inquiryDTO.getInquiryDetails());
+			if(inquiryDTO.getSecretStatus() == null) {
+				SecretStatus = "N";
+			}else {
+				SecretStatus = inquiryDTO.getSecretStatus();
+			}
+			pstmt.setString(4, SecretStatus);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public List<InquiryDTO> aJaxInquiryList(Connection con, String postNo) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PostDTO	post =null;
+		List<InquiryDTO> inquiryList = null;
+		String query = prop.getProperty("aJaxInquiryList");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, postNo);
+			rset = pstmt.executeQuery();
+			inquiryList = new ArrayList<>();
+			
+			while(rset.next()) {
+				InquiryDTO inquiryDTO = new InquiryDTO();
+				inquiryDTO.setPurchaser(new UserDTO());
+				
+				inquiryDTO.setInquiryNo(rset.getString("INQUIRY_NO"));
+				inquiryDTO.setPostNo(rset.getString("POST_NO"));
+				inquiryDTO.getPurchaser().setNo(rset.getString("PURCHASER_NO"));
+				inquiryDTO.setInquiryDetails(rset.getString("INQUIRY_DETAILS"));
+				inquiryDTO.setInquiryDate(rset.getDate("INQUIRY_DATE"));
+				inquiryDTO.setResponse(rset.getString("INQUIRY_RESPONSE"));
+				inquiryDTO.setResponseDate(rset.getDate("INQUIRY_RESPONSE_DATE"));
+				inquiryDTO.setResponseStatue(rset.getString("INQUIRY_RESPONSE_STATUS"));
+				inquiryDTO.setSecretStatus(rset.getString("INQUIRY_SECRET_STATUS"));
+				inquiryDTO.getPurchaser().setId(rset.getString("ID").substring(0,3)+"***");
+
+				inquiryList.add(inquiryDTO);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return inquiryList;
 	}
 
 	

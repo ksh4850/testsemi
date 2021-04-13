@@ -36,7 +36,6 @@ public class PostDetailServlet extends HttpServlet {
 		
 		String purchaserNo = "";
 		
-		String postUser= "";
 		
 		if(user != null) {
 		purchaserNo = user.getNo();
@@ -50,11 +49,6 @@ public class PostDetailServlet extends HttpServlet {
 				
 			}
 			
-			if(postDTO.getSeller().getNo().equals(purchaserNo)) {
-				postUser = postDTO.getSeller().getNo();
-//				System.out.println(postUser);
-			}
-			
 		}
 
 		
@@ -62,14 +56,15 @@ public class PostDetailServlet extends HttpServlet {
 		
 		if(postDTO != null) {
 			
-			if(postUser.isEmpty()) {
+//			if(postUser.isEmpty()) {
 			path="/WEB-INF/views/post/postview.jsp";
 			request.setAttribute("postDTO", postDTO);
 			request.setAttribute("userBidInfo", userBidInfo);
-			}else {
-				path="/WEB-INF/views/post/postview2.jsp";
-				request.setAttribute("postDTO", postDTO);
-			}
+			
+//			}else {
+//				path="/WEB-INF/views/post/postview2.jsp";
+//				request.setAttribute("postDTO", postDTO);
+//			}
 			
 					
 		}else {

@@ -24,6 +24,7 @@ public class PostDTO implements java.io.Serializable  {
 	private java.sql.Timestamp bidEndDate;
 	private String bidStatus;
 	private List<BidDTO> bidList;
+	private List<InquiryDTO> inquiryList;
 	
 	public PostDTO() {
 	
@@ -31,7 +32,7 @@ public class PostDTO implements java.io.Serializable  {
 
 	public PostDTO(String no, UserDTO seller, CategoryDTO category, Date postedDate, String title, String details,
 			String postCheck, String dealingCheck, int minPrice, List<ImgDTO> img, String unOpenedchk,
-			Timestamp bidEndDate, String bidStatus, List<BidDTO> bidList) {
+			Timestamp bidEndDate, String bidStatus, List<BidDTO> bidList, List<InquiryDTO> inquiryList) {
 		super();
 		this.no = no;
 		this.seller = seller;
@@ -47,6 +48,7 @@ public class PostDTO implements java.io.Serializable  {
 		this.bidEndDate = bidEndDate;
 		this.bidStatus = bidStatus;
 		this.bidList = bidList;
+		this.inquiryList = inquiryList;
 	}
 
 	public String getNo() {
@@ -161,6 +163,14 @@ public class PostDTO implements java.io.Serializable  {
 		this.bidList = bidList;
 	}
 
+	public List<InquiryDTO> getInquiryList() {
+		return inquiryList;
+	}
+
+	public void setInquiryList(List<InquiryDTO> inquiryList) {
+		this.inquiryList = inquiryList;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -170,9 +180,15 @@ public class PostDTO implements java.io.Serializable  {
 		return "PostDTO [no=" + no + ", seller=" + seller + ", category=" + category + ", postedDate=" + postedDate
 				+ ", title=" + title + ", details=" + details + ", postCheck=" + postCheck + ", dealingCheck="
 				+ dealingCheck + ", minPrice=" + minPrice + ", img=" + img + ", unOpenedchk=" + unOpenedchk
-				+ ", bidEndDate=" + bidEndDate + ", bidStatus=" + bidStatus + ", bidList=" + bidList + "]";
+				+ ", bidEndDate=" + bidEndDate + ", bidStatus=" + bidStatus + ", bidList=" + bidList + ", inquiryList="
+				+ inquiryList + "]";
 	}
 
+	
+	
+	
+
+	
 	
 
 

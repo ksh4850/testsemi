@@ -64,17 +64,39 @@
                </pre>
             </div>
             <div hidden style="border: 1px solid#25bc74;" id="post1-comment-info">
-                <form action="#">
-                    <textarea  cols="80" rows="3" id="comment-area" style="margin-top:30px;"></textarea>
-                    <div>
-                        <table>
-                            <td style="padding-left: 680px;"><div id="counter" >0/100 </div></td>
-                            <td><input type="submit" value="댓글작성"></td>
-                        </table>
-                    </div>
-                </form>
-                <!-- <div class="post1-comment" >작성자 : 내용</div> -->
-                <!-- <div id="comment1" width="350px" style="margin-top: 10px; border-bottom: 1px solid black; font-size: 25px; text-align: left; padding-left: 200px;" >작성자 : 내용</div> -->
+          
+                    
+               		<br>
+                    <table align="center" >
+                        <tr>
+                            <th width="100px">답변상태 </th>
+                            <th width="700px" align="center" style="padding-left: 350px;"> 내용 </th>
+                            <th width="100px"> 작성일 </th>
+                         </tr>
+                    </table>
+
+                       
+                        <div class="post1-comment" >
+                            <div  id="q1">답변완료</div>
+                            <div  id="q2" >내용 : 가나다라마바사아자차가타바이ㅣ이이이이ㅣ이</div>
+                            <div id="q3">2021/04/13</div>
+                            <div class="post1-comment-resonse" >
+                                <div id="w2" >ㄴ  : 가나다라마바사아자차가타바이ㅣ이이이이ㅣ이</div>
+                                <div id="w3">2021/04/13</div>
+                            </div> 
+                        </div> 
+
+                         <div class="post1-comment">
+                            <div  id="q1">답변완료</div>
+                            <div  id="q2" >내용 : 가나다라마바사아자차가타바이ㅣ이이이이ㅣ이</div>
+                            <div  id="q3">2021/04/13</div>
+                            <div class="post1-comment-resonse1" >
+                                <div  id="res1">답변 작성 : <input type="text" size="60"><input type="button" value="작성하기"></div>
+                            </div> 
+                        </div>
+                        
+                        
+                        <br clear="both">
             </div>
         </div>
         
@@ -158,24 +180,19 @@
             
         })
 
-        $(function(){
-            var user = ['사람1','사람2','사람3','사람4','사람5'];
-            var text1 = ['문의 합니다.','물어볼께요','하이요','그냥요','바보'];
-            var text2 = ['물건쩌러',null,'완전',null,'쩌러'];
-            var comment = "<div class=\"post1-comment\" >"+ user[i] + " : " + text1[i] +"</div>";
-            var comment1 = "<div class=\"post1-comment\" > ㄴ " + text2 +"</div>";
-            
-            for(var i = 0 ; i < 5 ; i++){
-                $("#post1-comment-info").append("<div class=\"post1-comment\" >"+ user[i] + " : " + text1[i] +"</div>").css("color","black");
-                if(text2[i] != null){
-                    $("#post1-comment-info").append("<div class=\"post1-comment\" > ㄴ " + text2[i] +"</div>").css("color","black");
-                }
-            }
+        $(".post1-comment").click(function(){
+                      
+                    if($(this).children(".post1-comment-resonse").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse").css("display","inline");
+                      }else{
+                            $(this).children(".post1-comment-resonse").css("display","none");
+                      }
 
-                
+                      if($(this).children(".post1-comment-resonse1").css("display") == "none"){
+                        $(this).children(".post1-comment-resonse1").css("display","inline");
+                      }
 
-        })
-
+                 })
 
 
     </script> 

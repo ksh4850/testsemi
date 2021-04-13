@@ -9,7 +9,7 @@
 </head>
 <body>
 	    <div id="footer">
-        <img src="/semitest1/resources/image/FOOTER.png" class="footerImg">4
+        <img src="/semitest1/resources/image/FOOTER.png" class="footerImg">
             <div class="footerMiddle">
                 <div><input type="button" id="noticeBtn" onclick="location.href='notice.html'"></div>
                 <div><input type="button" id="csBtn" onclick="location.href='cs.html'"></div>

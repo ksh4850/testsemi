@@ -13,6 +13,7 @@ import com.bidnow.post.model.dao.PostDAO;
 import com.bidnow.post.model.dto.BidDTO;
 import com.bidnow.post.model.dto.CategoryDTO;
 import com.bidnow.post.model.dto.ImgDTO;
+import com.bidnow.post.model.dto.InquiryDTO;
 import com.bidnow.post.model.dto.PostDTO;
 
 public class PostService {
@@ -150,8 +151,13 @@ public class PostService {
 		
 		List<BidDTO> bidList = postDAO.selectPostDetailbidList(con, postNo);
 		
+		List<InquiryDTO> inquiryList = postDAO.selectPostInquiryList(con,postNo);
+		
+//		System.out.println(inquiryList);
+		
 		postDTO.setImg(imglist);
 		postDTO.setBidList(bidList);
+		postDTO.setInquiryList(inquiryList);
 		
 //		System.out.println(postDTO);
 		
@@ -242,6 +248,34 @@ public class PostService {
 		
 		
 		return postDTO;
+	}
+
+
+
+
+	public List<InquiryDTO> insertComment(InquiryDTO inquiryDTO) {
+
+		Connection con = getConnection();
+		
+		List<InquiryDTO> inquiryList = null;
+		
+//		int result = postDAO.insertComment(con , inquiryDTO);
+//		
+//		if(result > 0) {
+			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
+			
+//			if(!inquiryList.isEmpty()) {
+//				commit(con);
+//			}else {
+//				rollback(con);
+//			}
+//		}
+	
+		
+		
+		close(con);
+		
+		return inquiryList;
 	}
 
 }

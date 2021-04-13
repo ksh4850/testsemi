@@ -278,6 +278,7 @@
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
 		    AND BID_STATUS = 'Y'
+		  ORDER BY BID_NO DESC
 	</entry>
 	<!-- 투찰 인설트 -->
 	<entry key="insertBid">
@@ -316,6 +317,7 @@
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
 			AND BID_STATUS = 'Y'
+	     ORDER BY BID_NO DESC		
 	</entry>
 	
 	<!-- 투찰 취소 -->
@@ -337,6 +339,72 @@
 		  FROM TBL_S_CATEGORY 
 		 WHERE L_CTG_CODE = ?
 	</entry>
+	
+	<!-- 댓글조회 셀렉문 -->
+	<entry key="selectPostInquiryList">
+		SELECT
+		      A.INQUIRY_NO
+		    , A.POST_NO
+		    , A.PURCHASER_NO
+		    , A.INQUIRY_DETAILS
+ 		    , A.INQUIRY_DATE
+		    , A.INQUIRY_RESPONSE
+		    , A.INQUIRY_RESPONSE_DATE
+		    , A.INQUIRY_RESPONSE_STATUS
+		    , A.INQUIRY_SECRET_STATUS
+		    , B.ID
+ 		 FROM TBL_INQUIRY A
+ 		 JOIN TBL_USER B ON (A.PURCHASER_NO = B.USER_NO)
+ 		WHERE POST_NO = ?
+		ORDER BY A.INQUIRY_NO 
+			
+	</entry>
+	
+	<!-- 댓글 작성 인설트 -->
+	<entry key="insertComment">
+		INSERT
+		  INTO TBL_INQUIRY
+		(
+		  INQUIRY_NO
+		, POST_NO
+		, PURCHASER_NO
+		, INQUIRY_DETAILS
+		, INQUIRY_DATE
+		, INQUIRY_SECRET_STATUS
+		)
+		VALUES
+		(
+		  SEQ_TBL_INQUIRY.NEXTVAL
+		, ?
+		, ?
+		, ?
+		, SYSDATE  
+		, ?
+		)
+		
+	
+	</entry>
+	
+	<!-- 댓글 ajax -->
+	<entry key="aJaxInquiryList">
+		SELECT
+		      A.INQUIRY_NO
+		    , A.POST_NO
+		    , A.PURCHASER_NO
+		    , A.INQUIRY_DETAILS
+ 		    , A.INQUIRY_DATE
+		    , A.INQUIRY_RESPONSE
+		    , A.INQUIRY_RESPONSE_DATE
+		    , A.INQUIRY_RESPONSE_STATUS
+		    , A.INQUIRY_SECRET_STATUS
+		    , B.ID
+ 		 FROM TBL_INQUIRY A
+ 		 JOIN TBL_USER B ON (A.PURCHASER_NO = B.USER_NO)
+ 		WHERE POST_NO = ?
+		ORDER BY A.INQUIRY_NO 
+	</entry>
+	
+
 	
 
 </properties>
