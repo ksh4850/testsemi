@@ -404,6 +404,16 @@
 		ORDER BY A.INQUIRY_NO 
 	</entry>
 	
+	<entry key="updateCommentResponse">
+		UPDATE
+			   TBL_INQUIRY A
+		   SET A.INQUIRY_RESPONSE = ?
+		     , A.INQUIRY_RESPONSE_DATE = SYSDATE 
+		     , A.INQUIRY_RESPONSE_STATUS = 'Y'
+		 WHERE A.INQUIRY_NO = ?
+		   AND A.INQUIRY_RESPONSE_STATUS = 'N'
+	</entry>
+	
 
 	
 

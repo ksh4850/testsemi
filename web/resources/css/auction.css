@@ -102,7 +102,7 @@
 .post1-comment>div{
     
     float: left;
-    border: 1px solid blue;  
+   /*  border: 1px solid blue;   */
    
     
 } 
@@ -113,7 +113,7 @@
     /* float: left; */
     
     display: none;
-    border: 1px solid #ff8000; 
+   /*  border: 1px solid #ff8000;  */
    
     
 }
@@ -124,14 +124,14 @@
     /* float: left; */
     
     display: none;
-    border: 1px solid #408080; 
+    /* border: 1px solid #408080;  */
    
     
 }
 
 .post1-comment-resonse>div{
     float: left;
-    border: 1px solid #800040; 
+   /*  border: 1px solid #800040;  */
 }
 .post1-comment-resonse1>div{
     float: left;
@@ -140,7 +140,8 @@
 
 #q1{
     width: 100px;
-    border: 1px solid red; 
+    /* border: 1px solid red; */
+     
     
 }
 
@@ -148,12 +149,13 @@
     width: 670px;
     text-overflow: ellipsis
     
+    
 }
 
 #q3{
    
     width: 100px;
-    border: 1px solid blue; 
+    /* border: 1px solid blue;  */
 }
 
 #w2{

@@ -259,23 +259,53 @@ public class PostService {
 		
 		List<InquiryDTO> inquiryList = null;
 		
-//		int result = postDAO.insertComment(con , inquiryDTO);
-//		
-//		if(result > 0) {
+		int result = postDAO.insertComment(con , inquiryDTO);
+		
+		if(result > 0) {
 			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
-			
-//			if(!inquiryList.isEmpty()) {
-//				commit(con);
-//			}else {
-//				rollback(con);
-//			}
-//		}
+//			
+			if(!inquiryList.isEmpty()) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
 	
 		
 		
 		close(con);
 		
 		return inquiryList;
+	}
+
+
+
+
+	public List<InquiryDTO> updateCommentResponse(InquiryDTO inquiryDTO) {
+		
+		Connection con = getConnection();
+		
+		List<InquiryDTO> inquiryList = null;
+		
+		int result = postDAO.updateCommentResponse(con , inquiryDTO);
+		
+		if(result > 0) {
+			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
+			
+			if(!inquiryList.isEmpty()) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+	
+		
+		
+		close(con);
+		
+		return inquiryList;
+		
+		
 	}
 
 }

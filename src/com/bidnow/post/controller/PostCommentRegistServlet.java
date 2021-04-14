@@ -25,16 +25,16 @@ public class PostCommentRegistServlet extends HttpServlet {
 		System.out.println("잘넘어");
 		
 		String postNo = request.getParameter("postNo");
-		String userNo = request.getParameter("userNo");
+		String loginUserNo = request.getParameter("loginUserNo");
 		String Detail = request.getParameter("Detail");
 		String Secret = request.getParameter("Secret");
 		
-		System.out.println(postNo + " : " + userNo + " : " +Detail + " : " +Secret);
+		System.out.println(postNo + " : " + loginUserNo + " : " +Detail + " : " +Secret);
 		
 		InquiryDTO inquiryDTO = new InquiryDTO();
 		inquiryDTO.setPostNo(postNo);
 		inquiryDTO.setPurchaser(new UserDTO());
-		inquiryDTO.getPurchaser().setNo(userNo);
+		inquiryDTO.getPurchaser().setNo(loginUserNo);
 		inquiryDTO.setInquiryDetails(Detail);
 		inquiryDTO.setSecretStatus(Secret);
 		

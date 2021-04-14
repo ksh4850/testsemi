@@ -129,7 +129,7 @@
 		                            <c:if test="${inquiry.responseStatue eq 'N' }">미답변</c:if>
 		                            <c:if test="${inquiry.responseStatue eq 'Y' }">답변 완료</c:if>
 		                            </div>
-		                            <div  id="q2" > 비밀글입니다.  </div>
+		                            <div  id="q2" > <strong> 비밀글입니다.</strong>  </div>
 		                            <div id="q3">${inquiry.inquiryDate}</div>
                        			</div>
                        		</c:if>
@@ -189,7 +189,7 @@
 		                            </c:if>
 		                            <c:if test="${inquiry.responseStatue eq 'N' }">
 		                            <div class="post1-comment-resonse1" >
-                                		<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div>
+                                		<div  id="res1">답변 작성 : <input type="text" class="responseDetail" size="60"><input type="button" name="${inquiry.inquiryNo }" id="reponseRegistBtn" value="작성하기"></div>
                            			 </div> 
 		                            </c:if>
 		                        </div> 
@@ -369,7 +369,7 @@
             
         })
         
-        $(".post1-comment").on("click",function(){
+        /* $(".post1-comment").on("click",function(){
                       
                     if($(this).children(".post1-comment-resonse").css("display") == "none"){
                         $(this).children(".post1-comment-resonse").css("display","inline");
@@ -381,12 +381,26 @@
                         $(this).children(".post1-comment-resonse1").css("display","inline");
                       } 
 
-      	})
+      	}) */
+      	
+      	$(document).on("click",".post1-comment",function(){
+            
+            if($(this).children(".post1-comment-resonse").css("display") == "none"){
+                $(this).children(".post1-comment-resonse").css("display","inline");
+              }else{
+                $(this).children(".post1-comment-resonse").css("display","none");
+              }
+
+               if($(this).children(".post1-comment-resonse1").css("display") == "none"){
+                $(this).children(".post1-comment-resonse1").css("display","inline");
+              } 
+
+			})
 
        
       
     
-      
+      //댓글추가 
       $("#commentRegistBtn").click(function(){
     	  var postNo = "${requestScope.postDTO.no}";
     	  var postUserNo ="${ requestScope.postDTO.seller.no}"
@@ -398,25 +412,13 @@
   				url: "${ pageContext.servletContext.contextPath }/post/insertComment",
   				type: "get",
   				data: {postNo : postNo,
-  					   userNo : loginUserNo,
+  					loginUserNo : loginUserNo,
   					   Detail : Detail, 
   					   Secret : Secret},
   			  success: function(data){
   				  
   				  
-  				$(document).on("click",".post1-comment",function(e){
-                    
-                    if($(this).children(".post1-comment-resonse").css("display") == "none"){
-                        $(this).children(".post1-comment-resonse").css("display","inline");
-                      }else{
-                        $(this).children(".post1-comment-resonse").css("display","none");
-                      }
-
-                       if($(this).children(".post1-comment-resonse1").css("display") == "none"){
-                        $(this).children(".post1-comment-resonse1").css("display","inline");
-                      } 
-
-      			})
+  				
       			
       			
 		    	$("#kkk").html("");			
@@ -430,55 +432,46 @@
 			  				responseStatue = "답변 미완료"
 			  			}
 			  			
-			  		//로그인 유저번호 , 포스트 만든 유저번호 가 같으면	
-			  		/* if(loginUserNo == postUserNo ){
-			  			$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +
-			  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
-			  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
-			  			//답변인경우
-			  			if(data[i].responseStatue == "Y"){
-				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
-                         '<div id="w3">' + data[i].responseDate + '</div></div>');
-				  		//미답변인경우
-			  			}else{
-				  			$("#kkk").append('<div class="post1-comment-resonse1" >'+
-                 		  '<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div></div></div>');
-			  			}
-			  			
-			  		}else{ */
 			  			//포스 주인이 아니고 비밀 상태이고 
 			  			if( data[i].secretStatus == 'Y'){
-			  				console.log(loginUserNo);
-			  				console.log(data[i].purchaser.no);
+			  				/* console.log(loginUserNo);
+			  				console.log(data[i].purchaser.no); */
 				  				//로그인한 회원이 글쓴이가 아니면!
 				  				if(loginUserNo != data[i].purchaser.no){
-				  					$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue + '</div><div  id="q2" > 비밀글입니다.  </div><div id="q3">' + data[i].inquiryDate + '</div></div>');
+				  					$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue + 
+				  							'</div><div id="q2"> <strong>비밀글입니다.</strong> </div> <div id="q3">' + data[i].inquiryDate + '</div>');
 				  				
 				  				//로그인한 회원이 글쓴이가 이면!
 				  				}else{
-				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
-		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
-		  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>');
+				  					
+				  					var x = '<div class="post1-comment-resonse" ><div id="w2" > ㄴ :'+ data[i].response + '</div>' + '<div id="w3">' + data[i].responseDate + '</div></div></div>';
+				  					
 		  				  			//답변인경우
 		  				  			if(data[i].responseStatue == "Y"){
-			  				  			$("#kkk").append('<div class="post1-comment-resonse" ><div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
-			                             '<div id="w3">' + data[i].responseDate + '</div></div></div>');
+		  				  				$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +'</div><div id="q2">'+
+					  						data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
+			  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>' + x  + '<div>');
 				  					}else{
-			  							$("#kkk").append('</div>');
+				  						$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +'</div><div id="q2">'+
+						  						data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
+				  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>');
 			  						}
+		  				  			
 			  				   }		
 	  				  			
 			  			}else{
-			  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
-  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
-  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
-  				  			//답변인경우
-  				  				if(data[i].responseStatue == "Y"){
-		  				  			$("#kkk").append('<div class="post1-comment-resonse" ><div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
-		                             '<div id="w3">' + data[i].responseDate + '</div></div></div>');
-		  						}else{
-		  							$("#kkk").append('</div>');
-		  						}
+			  				
+			  				var x = '<div class="post1-comment-resonse" ><div id="w2" > ㄴ :'+ data[i].response + '</div>' + '<div id="w3">' + data[i].responseDate + '</div></div></div>';
+			  				
+			  				if(data[i].responseStatue == "Y"){
+  				  				$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +'</div><div id="q2">'+
+			  						data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
+	  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>' + x  + '<div>');
+		  					}else{
+		  						$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue +'</div><div id="q2">'+
+				  						data[i].purchaser.id + ' : ' + data[i].inquiryDetails +'</div>' +
+		  				  				'<div id="q3">'+ data[i].inquiryDate +'</div>');
+	  						}
 			  				
 			  				
 			  			}
@@ -486,7 +479,6 @@
 			  			
 			  		}
 
-			  	/* 	} */
 
 				},
   				error: function(error){
@@ -495,15 +487,15 @@
   			}); 
       })
 		
-      
-/*       $(document).on("click","#reponseRegistBtn",function(e){
-      				/* location.href="${ pageContext.servletContext.contextPath }/post/updateCommentResponse"; 
+      //답글 
+       $(document).on("click","#reponseRegistBtn",function(){
+      				/* location.href="${ pageContext.servletContext.contextPath }/post/updateCommentResponse"; */
       				
       		var postNo = "${requestScope.postDTO.no}";
-      		var postUserNo ="${ requestScope.postDTO.seller.no}"
+      		var postUserNo ="${ requestScope.postDTO.seller.no}";
       		var loginUserNo ="${sessionScope.loginUser.no}";
-      		var responseDetail = $(this).find("#responseDetail").val();
-      		var purchaserNo = $(this).find("#responseDetail").attr("name");
+      		var responseDetail = $(".responseDetail").val();
+      		var inquiryNo = $(this).attr("name");
       		
       		
       		$.ajax({
@@ -512,11 +504,11 @@
   				data: {postNo : postNo,
   					   userNo : loginUserNo,
   					 responseDetail : responseDetail,
-  						purchaserNo : purchaserNo},
+  					inquiryNo : inquiryNo},
   			  success: function(data){
   				  
   				  
-  				$(document).on("click",".post1-comment",function(e){
+  			/* 	$(document).on("click",".post1-comment",function(e){
                     
                     if($(this).children(".post1-comment-resonse").css("display") == "none"){
                         $(this).children(".post1-comment-resonse").css("display","inline");
@@ -528,11 +520,11 @@
                         $(this).children(".post1-comment-resonse1").css("display","inline");
                       } 
 
-      			})
+      			}) */
       			
       			
 		    				
-  				  		$("#kkk").html("");
+  				  		/* $("#kkk").html("");
   				  		
   				  		for(var i = 0 ; i <data.length ; i++){
   				  			
@@ -559,48 +551,12 @@
 	                     		  '<div  id="res1">답변 작성 : <input type="text" id="responseDetail" size="60"><input type="button" id="reponseRegistBtn" value="작성하기"></div></div></div>');
   				  			}
   				  			
-  				  		}else{
-  				  			//포스 주인이 아니고 비밀 상태이고 
-  				  			if( data[i].secretStatus == 'Y'){
-  				  				
-  				  			
-	  				  				//로그인한 회원이 글쓴이가 아니면!
-	  				  				if(loginUserNo != data[i].purchaser.no){
-	  				  					$("#kkk").append('<div class="post1-comment"><div id="q1">' + responseStatue + '</div><div  id="q2" > 비밀글입니다.  </div><div id="q3">' + data[i].inquiryDate + '</div></div>');
-	  				  				
-	  				  				//로그인한 회원이 글쓴이가 이면!
-	  				  				}else{
-	  				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
-	  		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
-	  		  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
-	  		  				  			//답변인경우
-	  		  				  			if(data[i].responseStatue == "Y"){
-	  			  				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
-	  			                             '<div id="w3">' + data[i].responseDate + '</div></div>');
-	  				  					}else{
-				  							$("#kkk").append('</div>');
-				  						}
-  				  				}		
-  		  				  			
-  				  			}else{
-  				  					$("#kkk").append('<div class="post1-comment"><div  id="q1">' + responseStatue +
-		  				  				'</div><div  id="q2" >'+ data[i].purchaser.id + ' : ' + data[i].inquiryDetails +
-		  				  				'</div><div id="q3">'+ data[i].inquiryDate +'</div>');
-		  				  			//답변인경우
-		  				  			if(data[i].responseStatue == "Y"){
-			  				  			$("#kkk").append('<div id="w2" >ㄴ  :'+ data[i].response + '</div>' +
-			                             '<div id="w3">' + data[i].responseDate + '</div></div>');
-				  					}else{
-			  							$("#kkk").append('</div>');
-			  						}
-  				  				
-  				  				
-  				  			}
+  				  		}
   				  			
   				  			
   				  		}
 
-  				  		}
+  				  		} */
 	
 	    				},
   				error: function(error){
@@ -608,7 +564,7 @@
   				}
   			}); 
       		
-     }) */
+     }) 
 
 
     </script> 
