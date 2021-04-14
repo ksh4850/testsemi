@@ -17,13 +17,14 @@ public class InquiryDTO implements java.io.Serializable {
 	private java.sql.Date responseDate;
 	private String responseStatue;
 	private String secretStatus;
+	private String inquiryStatus ;
 	
 	public InquiryDTO() {
 		
 	}
 
 	public InquiryDTO(String inquiryNo, String postNo, UserDTO purchaser, String inquiryDetails, Date inquiryDate,
-			String response, Date responseDate, String responseStatue, String secretStatus) {
+			String response, Date responseDate, String responseStatue, String secretStatus, String inquiryStatus) {
 		super();
 		this.inquiryNo = inquiryNo;
 		this.postNo = postNo;
@@ -34,6 +35,7 @@ public class InquiryDTO implements java.io.Serializable {
 		this.responseDate = responseDate;
 		this.responseStatue = responseStatue;
 		this.secretStatus = secretStatus;
+		this.inquiryStatus = inquiryStatus;
 	}
 
 	public String getInquiryNo() {
@@ -108,6 +110,14 @@ public class InquiryDTO implements java.io.Serializable {
 		this.secretStatus = secretStatus;
 	}
 
+	public String getInquiryStatus() {
+		return inquiryStatus;
+	}
+
+	public void setInquiryStatus(String inquiryStatus) {
+		this.inquiryStatus = inquiryStatus;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -117,9 +127,10 @@ public class InquiryDTO implements java.io.Serializable {
 		return "InquiryDTO [inquiryNo=" + inquiryNo + ", postNo=" + postNo + ", purchaser=" + purchaser
 				+ ", inquiryDetails=" + inquiryDetails + ", inquiryDate=" + inquiryDate + ", response=" + response
 				+ ", responseDate=" + responseDate + ", responseStatue=" + responseStatue + ", secretStatus="
-				+ secretStatus + "]";
+				+ secretStatus + ", inquiryStatus=" + inquiryStatus + "]";
 	}
 
+	
 	
 
 	

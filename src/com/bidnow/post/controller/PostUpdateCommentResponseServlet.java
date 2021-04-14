@@ -34,20 +34,20 @@ public class PostUpdateCommentResponseServlet extends HttpServlet {
 		inquiryDTO.setResponse(responseDetail);
 		
 		
-//		List<InquiryDTO> inquiryList = new PostService().updateCommentResponse(inquiryDTO);
-//		
-//		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
-//		String jsonString= gson.toJson(inquiryList);
-//		
-//		System.out.println(jsonString);
-//		
-//		
-//		response.setContentType("application/json; charset=UTF-8");
-//		PrintWriter out = response.getWriter();
-//		out.print(jsonString);
-//		
-//		out.flush();
-//		out.close();
+		List<InquiryDTO> inquiryList = new PostService().updateCommentResponse(inquiryDTO);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
+		String jsonString= gson.toJson(inquiryList);
+		
+		System.out.println(jsonString);
+		
+		
+		response.setContentType("application/json; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.print(jsonString);
+		
+		out.flush();
+		out.close();
 	}
 
 }

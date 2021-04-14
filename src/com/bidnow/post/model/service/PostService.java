@@ -153,7 +153,7 @@ public class PostService {
 		
 		List<InquiryDTO> inquiryList = postDAO.selectPostInquiryList(con,postNo);
 		
-//		System.out.println(inquiryList);
+//		System.out.println("list" + inquiryList);
 		
 		postDTO.setImg(imglist);
 		postDTO.setBidList(bidList);
@@ -287,9 +287,11 @@ public class PostService {
 		
 		List<InquiryDTO> inquiryList = null;
 		
-		int result = postDAO.updateCommentResponse(con , inquiryDTO);
 		
-		if(result > 0) {
+		  int result = postDAO.updateCommentResponse(con , inquiryDTO);
+		  
+		  if(result > 0) {
+		 
 			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
 			
 			if(!inquiryList.isEmpty()) {

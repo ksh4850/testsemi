@@ -524,7 +524,7 @@ public class PostDAO {
 		
 		return result;
 	}
-
+	//AJAX 투찰정보 셀렉
 	public List<BidDTO> selectAjaxBidList(Connection con, String postNo) {
 
 		PreparedStatement pstmt = null;
@@ -731,6 +731,7 @@ public class PostDAO {
 				inquiryDTO.setResponseStatue(rset.getString("INQUIRY_RESPONSE_STATUS"));
 				inquiryDTO.setSecretStatus(rset.getString("INQUIRY_SECRET_STATUS"));
 				inquiryDTO.getPurchaser().setId(rset.getString("ID").substring(0,3)+"***");
+				inquiryDTO.setInquiryStatus(rset.getString("INQUIRY_STATUS"));
 
 				inquiryList.add(inquiryDTO);
 			}
@@ -809,6 +810,7 @@ public class PostDAO {
 				inquiryDTO.setResponseStatue(rset.getString("INQUIRY_RESPONSE_STATUS"));
 				inquiryDTO.setSecretStatus(rset.getString("INQUIRY_SECRET_STATUS"));
 				inquiryDTO.getPurchaser().setId(rset.getString("ID").substring(0,3)+"***");
+				inquiryDTO.setInquiryStatus(rset.getString("INQUIRY_STATUS"));
 
 				inquiryList.add(inquiryDTO);
 			}

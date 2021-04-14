@@ -94,7 +94,7 @@
     margin-left: 50px; 
     text-align: left;
     font-size: 15px;
-    /* border: 1px solid blue;  */
+    /* border: 1px solid blue;  */ 
 
     
     
@@ -102,14 +102,18 @@
 .post1-comment>div{
     
     float: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   
    /*  border: 1px solid blue;   */
    
     
 } 
 .post1-comment-resonse{
-    margin-left: 50px; 
+    /* margin-left: 50px;  */
     width: 900px;
     text-align: left;
+    background-color: #25bc74;
     /* float: left; */
     
     display: none;
@@ -131,18 +135,20 @@
 
 .post1-comment-resonse>div{
     float: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
    /*  border: 1px solid #800040;  */
 }
 .post1-comment-resonse1>div{
     float: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 
 #q1{
     width: 100px;
     /* border: 1px solid red; */
-     
-    
 }
 
 #q2{
