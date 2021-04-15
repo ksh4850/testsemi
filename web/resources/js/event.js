@@ -13,7 +13,7 @@ $(function(){
     		})
     		
     		$("#myPageBtn").click(function(){
-    			location.href="/semitest1/user/login";
+    			location.href="/semitest1/user/mypage/purchaseinfo";
     		})
     		
     		

@@ -44,8 +44,6 @@
     </div>
     </c:if>
     
-    <script >
-    	
-    </script>
+    
 </body>
 </html>
