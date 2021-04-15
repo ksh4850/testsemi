@@ -12,31 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bidnow.post.model.dto.InquiryDTO;
 import com.bidnow.post.model.service.PostService;
-import com.bidnow.user.model.dto.UserDTO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-/**
- * Servlet implementation class PostDeleteCommectServlet
- */
-@WebServlet("/post/deletecommet")
-public class PostDeleteCommetServlet extends HttpServlet {
+
+@WebServlet("/post/updatecommetDetail")
+public class postUpdateCommetDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		System.out.println("하이하이");
-		
 		String inquiryNo = request.getParameter("inquiryNo");
 		String postNo = request.getParameter("postNo");
+		String updateDetail = request.getParameter("updateDetail");
 		
-		System.out.println(postNo + " : " + inquiryNo);
+		System.out.println(inquiryNo + " : " + postNo + " : " +updateDetail);
 		
+
 		InquiryDTO inquiryDTO = new InquiryDTO();
 		inquiryDTO.setPostNo(postNo);
 		inquiryDTO.setInquiryNo(inquiryNo);
+		inquiryDTO.setInquiryDetails(updateDetail);
 		
 		
-		List<InquiryDTO> inquiryList = new PostService().deleteCommet(inquiryDTO);
+		List<InquiryDTO> inquiryList = new PostService().updateCommetDetail(inquiryDTO);
 		
 //		for(InquiryDTO i :inquiryList) {
 //			System.out.println("list"+i);
@@ -54,6 +53,8 @@ public class PostDeleteCommetServlet extends HttpServlet {
 		
 		out.flush();
 		out.close();
+	
+		
 	}
 
 }

@@ -852,6 +852,59 @@ public class PostDAO {
 		
 		return result;
 	}
+
+	public int deleteCommet(Connection con, InquiryDTO inquiryDTO) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("deleteCommet");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, inquiryDTO.getInquiryNo());
+			pstmt.setString(2, inquiryDTO.getPostNo());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateCommetDetail(Connection con, InquiryDTO inquiryDTO) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		String query = prop.getProperty("updateCommetDetail");
+		
+		try {
+			pstmt = con.prepareStatement(query);
+			pstmt.setString(1, inquiryDTO.getInquiryDetails());
+			pstmt.setString(2, inquiryDTO.getInquiryNo());
+			pstmt.setString(3, inquiryDTO.getPostNo());
+			
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			
+			close(pstmt);
+		}
+		
+		return result;
+	}
 		
 		
 		

@@ -40,10 +40,14 @@ public class PostCommentRegistServlet extends HttpServlet {
 		
 		List<InquiryDTO> inquiryList = new PostService().insertComment(inquiryDTO);
 		
+//		for(InquiryDTO i :inquiryList) {
+//			System.out.println("list"+i);
+//		}
+		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy/MM/dd").create();
 		String jsonString= gson.toJson(inquiryList);
 		
-		System.out.println(jsonString);
+//		System.out.println(jsonString);
 		
 		
 		response.setContentType("application/json; charset=UTF-8");

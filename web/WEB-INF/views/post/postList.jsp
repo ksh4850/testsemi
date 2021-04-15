@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <link rel="stylesheet" href="/semitest1/resources/css/auction.css">
+
 <title>Insert title here</title>
 </head>
 <body>

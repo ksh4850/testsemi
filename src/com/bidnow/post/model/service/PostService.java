@@ -158,7 +158,7 @@ public class PostService {
 		postDTO.setImg(imglist);
 		postDTO.setBidList(bidList);
 		postDTO.setInquiryList(inquiryList);
-		
+		System.out.println(postDTO.getBidList());
 //		System.out.println(postDTO);
 		
 		
@@ -263,7 +263,7 @@ public class PostService {
 		
 		if(result > 0) {
 			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
-//			
+			
 			if(!inquiryList.isEmpty()) {
 				commit(con);
 			}else {
@@ -308,6 +308,67 @@ public class PostService {
 		return inquiryList;
 		
 		
+	}
+
+
+
+
+	public List<InquiryDTO> deleteCommet(InquiryDTO inquiryDTO) {
+		
+		Connection con = getConnection();
+		
+		List<InquiryDTO> inquiryList = null;
+		
+		
+		  int result = postDAO.deleteCommet(con , inquiryDTO);
+		  
+		  if(result > 0) {
+		 
+			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
+			
+			if(!inquiryList.isEmpty()) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+	
+		
+		
+		close(con);
+		
+		return inquiryList;
+		
+	}
+
+
+
+
+	public List<InquiryDTO> updateCommetDetail(InquiryDTO inquiryDTO) {
+		Connection con = getConnection();
+		
+		List<InquiryDTO> inquiryList = null;
+		
+		
+		
+		  int result = postDAO.updateCommetDetail(con , inquiryDTO);
+		  
+		  if(result > 0) {
+		 
+			inquiryList =  postDAO.aJaxInquiryList(con , inquiryDTO.getPostNo());
+			
+			if(!inquiryList.isEmpty()) {
+				commit(con);
+			}else {
+				rollback(con);
+			}
+		}
+	
+		
+		
+		close(con);
+		
+		return inquiryList;
 	}
 
 }

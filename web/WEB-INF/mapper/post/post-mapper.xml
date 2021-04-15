@@ -317,7 +317,7 @@
 		  FROM TBL_BID
 		  WHERE POST_NO = ?
 			AND BID_STATUS = 'Y'
-	     ORDER BY BID_NO DESC		
+	     ORDER BY BID_PRICE DESC		
 	</entry>
 	
 	<!-- 투찰 취소 -->
@@ -358,7 +358,7 @@
  		 JOIN TBL_USER B ON (A.PURCHASER_NO = B.USER_NO)
  		WHERE POST_NO = ?
  		  AND A.INQUIRY_STATUS = 'Y'
-		ORDER BY A.INQUIRY_NO 
+		ORDER BY A.INQUIRY_NO DESC
 			
 	</entry>
 	
@@ -408,6 +408,7 @@
 		ORDER BY A.INQUIRY_NO 
 	</entry>
 	
+	<!-- 답글 추가 -->
 	<entry key="updateCommentResponse">
 		UPDATE
 			   TBL_INQUIRY A
@@ -416,6 +417,24 @@
 		     , A.INQUIRY_RESPONSE_STATUS = 'Y'
 		 WHERE A.INQUIRY_NO = ?
 		   AND A.INQUIRY_RESPONSE_STATUS = 'N'
+	</entry>
+	
+	<!-- 댓글삭제 -->
+	<entry key="deleteCommet">
+		UPDATE
+		       TBL_INQUIRY A
+		   SET A.INQUIRY_STATUS = 'N'  
+		 WHERE A.INQUIRY_NO = ?
+		   AND A.POST_NO = ?
+	</entry>
+	
+	<!-- 댓글 수정 -->
+	<entry key="updateCommetDetail">
+		UPDATE
+		       TBL_INQUIRY A
+		   SET A.INQUIRY_DETAILS = ?  
+		 WHERE A.INQUIRY_NO = ?
+		   AND A.POST_NO = ?
 	</entry>
 	
 
