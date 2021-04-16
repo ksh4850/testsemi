@@ -328,7 +328,7 @@
                 },1000);
                 
                 
-               //댓글 숫자
+               //댓글작성 숫자
               $("#comment-area").keyup(function(){
                     
                     var inputLength =$(this).val().length;

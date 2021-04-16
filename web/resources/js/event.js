@@ -13,7 +13,9 @@ $(function(){
     		})
     		
     		$("#myPageBtn").click(function(){
-    			location.href="/semitest1/user/mypage/purchaseinfo";
+    			/*location.href="/semitest1/user/mypage/sellinfo";*/
+    			location.href="/semitest1/user/mypage/purchaseInfo";
+    			
     		})
     		
     		
