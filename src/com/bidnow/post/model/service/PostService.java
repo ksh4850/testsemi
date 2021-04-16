@@ -39,9 +39,9 @@ public class PostService {
 		
 		for(int i = 0 ; i < postList.size() ; i ++) {
 			
-			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getNo());
+			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getPostNo());
 			
-			postList.get(i).setImg(imglist);
+			postList.get(i).setImgList(imglist);
 			
 		}
 		
@@ -78,9 +78,9 @@ public class PostService {
 		
 		for(int i = 0 ; i < postList.size() ; i ++) {
 			
-			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getNo());
+			List<ImgDTO> imglist = postDAO.selectPostImgList(con, postList.get(i).getPostNo());
 			
-			postList.get(i).setImg(imglist);
+			postList.get(i).setImgList(imglist);
 			
 		}
 		
@@ -127,7 +127,7 @@ public class PostService {
 
 			imgResult = postDAO.inserPostImg(postDTO , con ,postNo);
 			
-			if(imgResult == postDTO.getImg().size()) {
+			if(imgResult == postDTO.getImgList().size()) {
 				commit(con);
 			}else{
 				rollback(con);
@@ -155,7 +155,7 @@ public class PostService {
 		
 //		System.out.println("list" + inquiryList);
 		
-		postDTO.setImg(imglist);
+		postDTO.setImgList(imglist);
 		postDTO.setBidList(bidList);
 		postDTO.setInquiryList(inquiryList);
 		System.out.println(postDTO.getBidList());

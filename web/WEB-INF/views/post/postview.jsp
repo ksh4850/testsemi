@@ -29,7 +29,7 @@
         <!-- width="350px" height="350px" style="margin-top: 25px;  -->
         <div id="post1-main">
             <div id="post1-main-img">
-                 <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ postDTO.img[0].thnFileName}" id="post1-img" >
+                 <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ postDTO.imgList[0].thnFileName}" id="post1-img" >
                    <div id="post1-img-left"></div>
                  <div id="post1-img-right"><i  class="xi-angle-right-thin xi-4x"></i></div>
             </div>
@@ -222,6 +222,8 @@
                         
                         
                         <br clear="both">
+                        
+                        
             </div>
         </div>
         
@@ -232,12 +234,12 @@
 	<script>
 	
 		var postimg = 0;
-		var postimglength = Number(${fn:length(postDTO.img)});
+		var postimglength = Number(${fn:length(postDTO.imgList)});
 		
 		
 			var n = 0;
 			var imglist = []; 
-			<c:forEach var="img" items="${postDTO.img}">
+			<c:forEach var="img" items="${postDTO.imgList}">
 
 				imglist[n]= "${img.thnFileName}";
 				
@@ -348,7 +350,7 @@
 	        	if(${empty sessionScope.loginUser}){
 	        		alert("로그인후 사용해주세요");
 	        	}else{
-		        	var postNo = "${requestScope.postDTO.no}";
+		        	var postNo = "${requestScope.postDTO.postNo}";
 		        	var userNo ="${sessionScope.loginUser.no}";
 		        	var bidPrice = $("#userbidPrice").val();
 			        	if(bidPrice == ""){
@@ -395,7 +397,7 @@
             
             //투찰취소 AJAX
              $("#bidcancelBtn1").click(function(){
-            	var postNo = "${requestScope.postDTO.no}";
+            	var postNo = "${requestScope.postDTO.postNo}";
 		        var userNo ="${sessionScope.loginUser.no}";
 		        
             	 $.ajax({
@@ -450,7 +452,7 @@
 	    	 e.stopPropagation(); 
 	    	
 		   
-			var postNo = "${requestScope.postDTO.no}";
+			var postNo = "${requestScope.postDTO.postNo}";
 			var inquiryNo =  $(this).parents(".post1-comment").attr("id"); 
 
 			
@@ -491,7 +493,7 @@
 	    	e.stopPropagation();
 	    	
 		   
-			var postNo = "${requestScope.postDTO.no}";
+			var postNo = "${requestScope.postDTO.postNo}";
 			var detailvalue = $(this).parents("#q2").text();
 			var lastidx = detailvalue.lastIndexOf('/') - 2;
 			var idx = detailvalue.indexOf(':') + 1 ;
@@ -505,7 +507,7 @@
 			
 			
 			 $('#commentUpdatebtn').click(function(){
-				var postNo = "${requestScope.postDTO.no}";
+				var postNo = "${requestScope.postDTO.postNo}";
 				var inquiryNo =  $(this).parents(".post1-comment").attr("id");
 				var updateDetail =  $(this).parent().children("#updateDteil").val();
 				
@@ -566,7 +568,7 @@
     
       //댓글추가  ajax
       $("#commentRegistBtn").click(function(){
-    	  var postNo = "${requestScope.postDTO.no}";
+    	  var postNo = "${requestScope.postDTO.postNo}";
     	  var postUserNo ="${ requestScope.postDTO.seller.no}"
 	      var loginUserNo ="${sessionScope.loginUser.no}";
 	      var Detail = $("#comment-area").val();
@@ -605,7 +607,7 @@
        $(document).on("click","#reponseRegistBtn",function(e){
     	    e.stopPropagation();
       				
-      		var postNo = "${requestScope.postDTO.no}";
+      		var postNo = "${requestScope.postDTO.postNo}";
       		var postUserNo ="${ requestScope.postDTO.seller.no}";
       		var loginUserNo ="${sessionScope.loginUser.no}";
       		var responseDetail = $(this).parent().find(".responseDetail").val();
@@ -676,7 +678,7 @@
      })
      
      function commentRegistappend(data){
-			  var postNo = "${requestScope.postDTO.no}";
+			  var postNo = "${requestScope.postDTO.postNo}";
 	    	  var postUserNo ="${ requestScope.postDTO.seller.no}"
 		      var loginUserNo ="${sessionScope.loginUser.no}";
 		      var Detail = $("#comment-area").val();

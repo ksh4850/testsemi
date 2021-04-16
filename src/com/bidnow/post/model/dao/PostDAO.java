@@ -61,7 +61,7 @@ public class PostDAO {
 				post.setSeller(new UserDTO());
 				post.setCategory(new CategoryDTO());
 				
-				post.setNo(rset.getString("POST_NO"));
+				post.setPostNo(rset.getString("POST_NO"));
 				post.getSeller().setNo(rset.getString("SELLER_NO"));
 				post.setPostedDate(rset.getDate("POSTED_DATE"));
 				post.setTitle(rset.getString("POST_TITLE"));
@@ -152,7 +152,7 @@ public class PostDAO {
 				post.setSeller(new UserDTO());
 				post.setCategory(new CategoryDTO());
 				
-				post.setNo(rset.getString("POST_NO"));
+				post.setPostNo(rset.getString("POST_NO"));
 				post.getSeller().setNo(rset.getString("SELLER_NO"));
 				post.setPostedDate(rset.getDate("POSTED_DATE"));
 				post.setTitle(rset.getString("POST_TITLE"));
@@ -231,12 +231,12 @@ public class PostDAO {
 		
 		try {
 			
-			for(int i =0 ;i < postDTO.getImg().size() ; i++ ) {
+			for(int i =0 ;i < postDTO.getImgList().size() ; i++ ) {
 			pstmt= con.prepareStatement(query);
 			pstmt.setString(1, postNo);
-			pstmt.setString(2, postDTO.getImg().get(i).getOrgFileName());
-			pstmt.setString(3, postDTO.getImg().get(i).getReFileName());
-			pstmt.setString(4, postDTO.getImg().get(i).getThnFileName());
+			pstmt.setString(2, postDTO.getImgList().get(i).getOrgFileName());
+			pstmt.setString(3, postDTO.getImgList().get(i).getReFileName());
+			pstmt.setString(4, postDTO.getImgList().get(i).getThnFileName());
 			
 			
 			insertPostResult += pstmt.executeUpdate();
@@ -374,7 +374,7 @@ public class PostDAO {
 				post.setSeller(new UserDTO());
 				post.setCategory(new CategoryDTO());
 				
-				post.setNo(rset.getString("POST_NO"));
+				post.setPostNo(rset.getString("POST_NO"));
 				post.getSeller().setNo(rset.getString("SELLER_NO"));
 				post.setPostedDate(rset.getDate("POSTED_DATE"));
 				post.setTitle(rset.getString("POST_TITLE"));
@@ -387,10 +387,10 @@ public class PostDAO {
 				post.setBidStatus(rset.getString("BID_STATUS"));
 				post.getCategory().setCtgSCode(rset.getString("S_CTG_CODE"));
 				post.getCategory().setCtgSName(rset.getString("S_CTG_NAME"));
-
+		
 
 			}
-			
+				System.out.println("post : " +post);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -672,7 +672,7 @@ public class PostDAO {
 				post.setSeller(new UserDTO());
 				post.setCategory(new CategoryDTO());
 				
-				post.setNo(rset.getString("POST_NO"));
+				post.setPostNo(rset.getString("POST_NO"));
 				post.getSeller().setNo(rset.getString("SELLER_NO"));
 				post.setPostedDate(rset.getDate("POSTED_DATE"));
 				post.setTitle(rset.getString("POST_TITLE"));

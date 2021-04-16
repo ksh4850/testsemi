@@ -98,8 +98,8 @@
         <br clear="both">
     	
 		<c:forEach var="post" items="${requestScope.postList }">
-		<div class="post5-product" id="${ post.no}">
-            <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ post.img[0].thnFileName}"  width="175px" height="175px" > 
+		<div class="post5-product" id="${ post.postNo}">
+            <img src="${ pageContext.servletContext.contextPath }/resources/thumbnail-image/${ post.imgList[0].thnFileName}"  width="175px" height="175px" > 
              <div class="post5-title">${ post.title}</div> 
 
         </div> 

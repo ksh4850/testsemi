@@ -203,7 +203,7 @@ public class PostRegistServlet extends HttpServlet {
 
 			PostDTO postDTO = new PostDTO();
 			
-			postDTO.setImg(imgList);
+			postDTO.setImgList(imgList);
 			postDTO.setCategory(new CategoryDTO());
 			postDTO.getCategory().setCtgLCode(postInfo.get("lCategory"));
 			postDTO.getCategory().setCtgSCode(postInfo.get("sCategory"));
