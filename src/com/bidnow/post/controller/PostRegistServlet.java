@@ -32,18 +32,7 @@ import com.bidnow.user.model.dto.UserDTO;
 public class PostRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-//	private String imgLocation;
-//	private int fileSize;
-	
-	
-//	@Override
-//	public void init() throws ServletException{
-//		ServletContext context = getServletContext();
-//		//web에 저장한 param을 불러와서 전역변수에 넣는다
-//		imgLocation = context.getInitParameter("file-location");
-//		fileSize = Integer.valueOf(context.getInitParameter("max-file-size"));
-//		
-//	}
+
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -141,7 +130,7 @@ public class PostRegistServlet extends HttpServlet {
 						
 						
 						File saveFile = new File(imgLocation + "/" + reFileNam);
-						String thnFileName =  "/thumnail_" + reFileNam;
+						String thnFileName =  "thumnail_" + reFileNam;
 						String thnPath = thumbnaildirectory + "/" + thnFileName;
 						Thumbnails.of(saveFile)
 								.size(300,300)

@@ -27,7 +27,8 @@ public class PostUpdateCommentResponseServlet extends HttpServlet {
 		String inquiryNo = request.getParameter("inquiryNo");
 		String postNo = request.getParameter("postNo");
 		
-		System.out.println(inquiryNo + " : " + responseDetail);
+		
+		System.out.println(inquiryNo + " : " + responseDetail + ":" + postNo);
 		InquiryDTO inquiryDTO = new InquiryDTO();
 		inquiryDTO.setPostNo(postNo);
 		inquiryDTO.setInquiryNo(inquiryNo);

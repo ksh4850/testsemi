@@ -22,7 +22,7 @@ public class UserSelectSellInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 	
-		System.out.println("잘넘어오니??");
+		System.out.println("판매목록??");
 		
 		String currentPage = request.getParameter("currentPage");
 		

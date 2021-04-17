@@ -1,22 +1,18 @@
 $(function(){
     		$("#regstBtn").click(function(){
-    			location.href="/semitest1/user/regist";
+    			location.href="/bidnow/user/regist";
     		})
     		
     		$("#loginBtn").click(function(){
-    			location.href="/semitest1/user/login";
+    			location.href="/bidnow/user/login";
     		})
     		
     		
     		$("#logoutBtn").click(function(){
-    			location.href="/semitest1/user/logout";
+    			location.href="/bidnow/user/logout";
     		})
     		
-    		$("#myPageBtn").click(function(){
-    			/*location.href="/semitest1/user/mypage/sellinfo";*/
-    			location.href="/semitest1/user/mypage/purchaseInfo";
-    			
-    		})
+    	
     		
     		
     	})
